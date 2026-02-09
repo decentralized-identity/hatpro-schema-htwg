@@ -33,3 +33,9 @@ tools/* - Copy*.mjs
 # OS cruft
 .DS_Store
 Thumbs.db
+
+# local snapshots / WIP artifacts
+WIP_tools/scripts/REPO
+scripts/*.zip
+tools/*.zip
+

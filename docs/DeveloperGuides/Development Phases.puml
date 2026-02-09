@@ -1,0 +1,84 @@
+@startuml
+skinparam monochrome false
+skinparam activityBorderColor Black
+skinparam activityBackgroundColor White
+skinparam ArrowColor Black
+skinparam ArrowThickness 2
+
+
+start
+
+
+:'Phase 1
+Lint HINTS (PUML)';
+if (Lint OK?) then (yes)
+-[#darkgreen]-> 'Phase 2
+Generate Schemas & Enums';
+else (no)
+-[#FF0000]-> 'Fix PUML /
+SCHEMAHINTS / ENUMHINTS';
+-[#black]-> back to 'Phase 1
+Lint HINTS (PUML)';
+endif
+
+
+if (Generation OK?) then (yes)
+-[#darkgreen]-> 'Phase 3
+Validate Schemas & Enums';
+else (no)
+-[#red]-> 'Fix generation bugs
+(or SCHEMAHINTS layout)';
+-[#black]-> back to 'Phase 2
+Generate Schemas & Enums';
+endif
+
+
+if (Schemas valid?
+Enums valid + patterns OK?) then (yes)
+-[#darkgreen]-> 'Phase 4
+Generate & Validate Samples';
+else (no)
+-[#red]-> 'Fix schemas / enums
+($ref, pattern, structure)';
+-[#black]-> back to 'Phase 3
+Validate Schemas & Enums';
+endif
+
+
+if (Samples valid?) then (yes)
+-[#darkgreen]-> 'Phase 5
+Validate Examples';
+else (no)
+-[#red]-> 'Fix schemas or
+update sample generators';
+-[#black]-> back to 'Phase 4
+Generate & Validate Samples';
+endif
+
+
+if (Examples valid?
+(real JSON vs schema)) then (yes)
+-[#darkgreen]-> 'Phase 6
+Bundle / Deref for Release';
+else (no)
+-[#red]-> 'Adjust schemas or
+example JSON expectations';
+-[#black]-> back to 'Phase 5
+Validate Examples';
+endif
+
+
+:'Bundle / Deref OK?';
+if (Release-ready?) then (yes)
+-[#darkgreen]-> 'Publish bundles /
+update external consumers';
+else (no)
+-[#red]-> 'Fix bundle config or
+source schemas';
+-[#black]-> back to 'Phase 6
+Bundle / Deref for Release';
+endif
+
+
+stop
+@enduml
