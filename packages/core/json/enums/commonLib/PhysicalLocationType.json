@@ -1,0 +1,12 @@
+{
+  "$id": "https://schemas.example.org/hatpro/core/commonLib/PhysicalLocationType.json",
+  "title": "Physical Location Type",
+  "type": "string",
+  "enum": [
+    "personal",
+    "business",
+    "both"
+  ],
+  "x-sourcePath": "/core/puml/commonLib/PhysicalLocationType.puml",
+  "description": "location use"
+}

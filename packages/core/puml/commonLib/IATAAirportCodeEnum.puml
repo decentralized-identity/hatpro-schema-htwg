@@ -1,0 +1,37 @@
+@startuml
+'title IATAAirportCodeEnum
+
+'Uncomment the statement below to produce diagrams (notes with SCHEMA Hints hidden)
+'!define VIEW_MODE   
+'!define HIDE_COMMENTS
+
+enum IATAAirportCodeEnum {
+  'sample values
+   'YUL, Montreal
+   'BOS, Boston
+   'SIN, Singapore
+   'AMS, Amsterdam
+}
+
+!ifndef VIEW_MODE
+note right of IATAAirportCodeEnum
+SCHEMAHINTS
+  title: IATAAirportCodeEnum
+  field encoding:
+    enumDefine:
+      title: IATA Airport Codes
+      enumId: /core/commonLib/IATAAirportCodeEnum
+      type: string
+      pattern: ^[A-Z]{3}$
+      description: Three-letter airport code
+      enum: [YUL,BOS SIN, AMS]
+      x-standard: IATA
+      x-standardRef: https://www.iata.org/en/publications/directories/code-search/
+      x-standardRef: https://en.wikipedia.org/wiki/IATA_airport_code
+      generate: true
+      sourcePath: /core/puml/commonLib/IATAAirportCodeEnum.puml
+      targetPath: /core/json/enums/commonLib/IATAAirportCodeEnum
+end note
+!endif
+
+@enduml

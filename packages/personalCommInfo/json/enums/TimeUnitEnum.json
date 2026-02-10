@@ -1,0 +1,12 @@
+{
+  "$id": "https://schemas.example.org/hatpro/PersonalCommInfo/TimeUnitEnum.json",
+  "title": "TimeUnitEnum",
+  "type": "string",
+  "enum": [
+    "CLOCK_12_HOUR",
+    "CLOCK_24_HOUR",
+    "NONE",
+    "NOT_SET"
+  ],
+  "x-sourcePath": "/PersonalCommInfo/puml/TimeUnitEnum.puml"
+}

@@ -1,11 +1,17 @@
-' InternationalString.puml
 @startuml
+'title InternationalString
+!include ./LanguageConfiguration.puml
+
+'Relationships
+InternationalString "1" --> "1" LanguageConfiguration
+
 skinparam classAttributeIconSize 0
 class InternationalString {
   +value: string
-  +langLocale: string
-  +encoding: string
+  +languageConfiguration: LanguageConfiguration
 }
+
+!ifndef VIEW_MODE
 note right of InternationalString
 SCHEMAHINTS v0.1
 title: InternationalString
@@ -15,15 +21,8 @@ required:[value, langLocale, encoding]
 field value:
   type: string
 
-field langLocale:
-  enumDefine:
-    enumId: /core/commonLib/TextLangLocaleEnum
-    valuePattern: ^[a-zA-Z]{2,3}(-[A-Za-z0-9-]+)?$
-    description: "IETF BCP47 language tag"
-
-field encoding:
-  enumDefine:
-    enumId: /core/commonLib/TextEncodingEnum
-    description: "ISO 15924 (TBD explicit pattern)"
+field languageConfiguration:
+  $ref:/core/commonLib/LanguageConfiguration
 end note
+!endif
 @enduml

@@ -1,0 +1,30 @@
+@startuml
+' packages/name/puml/NameComponent.enum.puml
+
+enum NameComponentEnum {
+  'sample values
+   'firstGivenName
+   'secondGivenName
+   'firstSurname
+   'secondSurname
+   'nameTitles
+   'nameSuffixes
+}
+
+!ifndef VIEW_MODE
+note right of NameComponentEnum
+SCHEMAHINTS
+  title: NameComponentEnum
+  field encoding:
+    enumDefine:
+      title: NameComponentEnums
+      enumId: /name/NameComponentEnum
+      type: string
+      description: components for building a HATPro Name
+      enum: [firstGivenName, secondGivenName, firstSurname, secondSurname, nametitles, nameSuffixes]
+      generate: true
+      sourcePath: /name/puml/NameComponentEnum.puml
+      targetPath: /name/json/enums/NameComponentEnum
+end note
+!endif
+@enduml

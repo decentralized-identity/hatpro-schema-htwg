@@ -1,0 +1,33 @@
+@startuml
+' packages/name/puml/NameDisplayLayout.puml
+
+!include ./NameLayoutScript.puml
+
+class NameDisplayLayout {
+  + formatName        : InternationalString
+  + formatDescription : InternationalString
+  + nameLayoutScript  : NameLayoutScript
+}
+
+NameDisplayLayout "1" -- "1" NameLayoutScript : script
+
+!ifndef VIEW_MODE
+note right of NameDisplayLayout
+SCHEMAHINTS v0.1
+  title: "NameDisplayLayout"
+
+  required:[formatName, nameFormatScript]
+
+  field formatName:
+    $ref: /core/commonLib/InternationalString
+    desc: "Human-readable name for this layout (e.g., 'Western full name')."
+
+  field formatDescription:
+    $ref: /core/commonLib/InternationalString
+    desc: "Description of when/where this layout is used."
+
+  field nameFormatScript:
+    $ref: /name/NameLayoutScript
+end note
+!endif
+@enduml

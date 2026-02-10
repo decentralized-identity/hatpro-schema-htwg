@@ -1,0 +1,32 @@
+{
+  "formatName": {
+    "value": "",
+    "languageConfiguration": {
+      "langLocale": {
+        "langLocale": "en-US"
+      },
+      "encoding": {
+        "encoding": "UTF-8"
+      }
+    }
+  },
+  "formatDescription": {
+    "value": "",
+    "languageConfiguration": {
+      "langLocale": {
+        "langLocale": "en-US"
+      },
+      "encoding": {
+        "encoding": "UTF-8"
+      }
+    }
+  },
+  "nameFormatScript": {
+    "items": [
+      {
+        "component": "",
+        "separator": ""
+      }
+    ]
+  }
+}

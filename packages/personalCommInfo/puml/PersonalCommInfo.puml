@@ -1,0 +1,74 @@
+@startuml
+skinparam classAttributeIconSize 0
+
+'Uncomment the statement below to produce diagrams (notes with SCHEMA Hints hidden)
+'!define VIEW_MODE   
+'!define HIDE_COMMENTS
+
+
+' Includes – adjust paths to match your repo
+!include ./TimeUnitEnum.puml
+!include ./TempUnitEnum.puml
+!include ./CurrencyPreferences.puml
+!include ./DistanceUnitEnum.puml
+!include ./RankedLanguageSkill.puml
+
+' Relationships for Name segment
+PersonalCommInfo ..> TimeUnitEnum
+PersonalCommInfo ..> TempUnitEnum
+PersonalCommInfo ..> CurrencyPreferences
+PersonalCommInfo ..> DistanceUnitEnum
+PersonalCommInfo "1" --> "0..*" RankedLanguageSkill
+
+class PersonalCommInfo {
+  +preferredSpokenLanguages          : RankedLanguageSkill[*]
+  +preferredWrittenLanguages         : RankedLanguageSkill[*]
+  +prefDistanceUnit         : DistanceUnitEnum
+  +prefTimeUnit             : TimeUnitEnum
+  +prefTemperatureUnit      : TempUnitEnum
+  +currencyPreferences      : CurrencyPreferences
+}
+
+!ifndef VIEW_MODE
+note right of PersonalCommInfo
+SCHEMAHINTS v0.1
+title: PersonalCommInfo
+desc: Communication-related information for the traveller, including spoken and written languages and basic unit and currency preferences.\nThis schema aggregates preferences used across multiple travel contexts.
+comment: Internal: schema is shared across multiple profile components; changes may require coordinated updates in dependent schemas.
+additionalProperties: false
+
+field preferredSpokenLanguages:
+  type: array
+  items:
+    $ref: /personalCommInfo/RankedLanguageSkill
+  desc: Languages the traveller can speak, with proficiency and preference scores per language.\nEach entry is a SpokenLanguage object.
+
+field preferredWrittenLanguages:
+  type: array
+  items:
+    $ref: /personalCommInfo/RankedLanguageSkill
+  desc: Languages the traveller can read and write, with separate proficiency and preference scores per language.
+
+field prefDistanceUnit:
+  type: string
+  enumValuesFrom: /personalCommInfo/enums/DistanceUnitEnum
+  desc: Preferred unit for expressing distances (e.g., kilometres or miles).
+
+field prefTimeUnit:
+  type: string
+  enumValuesFrom: /personalCommInfo/enums/TimeUnitEnum
+  desc: Preferred unit for expressing durations or time intervals.
+  comment: Internal: this does not replace locale-specific date/time formatting; it is used only for user-facing duration choices.
+
+field prefTemperatureUnit:
+  type: string
+  enumValuesFrom: /personalCommInfo/enums/TempUnitEnum
+  desc: Preferred unit for expressing temperatures (e.g., Celsius or Fahrenheit).
+
+field currencyPreferences:
+  $ref: /personalCommInfo/CurrencyPreferences
+  desc: Traveller's currency display and payment preferences, including preferred and fallback currencies.
+end note
+!endif
+
+@enduml

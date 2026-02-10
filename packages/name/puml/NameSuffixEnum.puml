@@ -1,0 +1,25 @@
+@startuml
+' packages/name/puml/NameSuffixEnum.puml
+
+enum NameSuffixEnum {
+  'sample values
+   'Jr., Sr., II, III, IV, PhD, MD, LLB, JD, Esq., CPA, P.Eng.
+}
+
+!ifndef VIEW_MODE
+note right of NameSuffixEnum
+SCHEMAHINTS
+  title: NameSuffixEnum
+  field encoding:
+    enumDefine:
+      title: NameSuffixEnum
+      enumId: /name/NameSuffixEnum
+      type: string
+      description: Name suffixes - currently a single list, future extension - Suffixes by catagory (e.g, academic degrees, professional designations)
+      enum: [Jr., Sr., II, III, IV, PhD, MD, LLB, JD, Esq., CPA, P.Eng.]
+      generate: true
+      sourcePath: /name/puml/NameSuffixEnum.puml
+      targetPath: /name/json/enums/NameSuffixEnum
+end note
+!endif
+@enduml

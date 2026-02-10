@@ -1,0 +1,10 @@
+{
+  "$id": "https://schemas.example.org/hatpro/physicalLocation/AddressContextEnum.json",
+  "title": "AddressContextEnum",
+  "type": "string",
+  "enum": [
+    "DOMESTIC",
+    "INTERNATIONAL"
+  ],
+  "x-sourcePath": "/physicalLocation/puml/AddressContextEnum.puml"
+}

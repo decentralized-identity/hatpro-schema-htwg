@@ -6,6 +6,7 @@ skinparam classAttributeIconSize 0
 !include ./InternationalString.puml
 !include ./TechString.puml
 
+
 class PresentationString{
   +techValue: TechString
   +presentationValue: InternationalString
@@ -19,12 +20,23 @@ required: [techValue, presentationValue]
 
 field techValue:
   $ref: /core/commonLib/TechString
+  ' Presentation string 
 
 field presentationValue:
   $ref: /core/commonLib/InternationalString
   ' string (for enums will be translated) that will be
   ' presented to a human traveler or service agent
 
+end note
+
+note top of PresentationString
+PresentationString is where a schema property is defined
+by an enum, which needs to be mapped (via a translation table lookup 
+to provide the string to present to a human observer got the selected)
+
+techValue - is the enum value (for use by applications)
+presentationValue is the InternationalString value in the lang/locale/encoding
+as selected for the component using the PresentationString schema
 end note
 
 @enduml

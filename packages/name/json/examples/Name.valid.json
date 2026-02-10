@@ -1,0 +1,32 @@
+{
+  "namePurpose": {
+    "text": "Legal name",
+    "language": "en",
+    "script": "Latn"
+  },
+  "languageLocale": {
+    "language": "en",
+    "region": "CA",
+    "charset": "UTF-8"
+  },
+  "firstGivenName": {
+    "text": "Norah",
+    "language": "en"
+  },
+  "secondGivenName": {
+    "text": "A.",
+    "language": "en"
+  },
+  "firstSurname": {
+    "text": "Thomson",
+    "language": "en"
+  },
+  "secondSurname": {
+    "text": "Garcia",
+    "language": "es"
+  },
+  "sortName": {
+    "text": "Thomson, Norah",
+    "language": "en"
+  }
+}

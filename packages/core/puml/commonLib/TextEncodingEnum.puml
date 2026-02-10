@@ -1,27 +1,44 @@
-@startuml
-title TextEncodingEnum — v1.2 (enumId / targetPath / sourcePath
+@startumlon
+'title TextEncodingEnum — v1.2 (enumId / targetPath / sourcePath
 
-
-' Dummy Class used in generation of an enum.json file. Class name must end with "_genEnum"
-class TextEncoding_genEnum {
+enum TextEncodingEnum {
+  'sameple values
+  'UTF-9
+  'ISU-8859-1
+  'Shift JIS
 }
-note top of TextEncoding_genEnum
+
+'Uncomment the statement below to produce diagrams (notes with SCHEMA Hints hidden)
+'!define VIEW_MODE   
+
+/' optional - used for showing schema developerson whow to defin a non-trivial enum (based on a standard)
+note top of TextEncodingEnum
 This class specifies the enum file TextEncoding
  - it provides an example of the features that can be inclucded in an enum file
  - see the generated enum file for details at \packages\core\json\enums\commonLib\TextEncodingEnum.json
 end note
+'/
 
-note right of TextEncoding_genEnum
+!ifndef HIDE_COMMENTS
+note bottom of TextEncodingEnum
+      enum: [UTF-8, Windows Western (1252), ISO Latin-1,
+             ISO Latin-9, Shift JIS, GB 18030, Big5]
+      description: encodings supported one or both of
+            -  WHATWG - https://encoding.spec.whatwg.org/ 
+            - ISO 15924 - https://en.wikipedia.org/wiki/ISO_15924
+end note
+!endif
+
+!ifndef VIEW_MODE
+note right of TextEncodingEnum
 SCHEMAHINTS
-  title: TextEncoding_genEnum
+  title: TextEncodingEnum
   field encoding:
     desc: Character encoding label for ingest/presentation edges. Internal storage is UTF-8.
     enumDefine:
       enumId: /core/commonLib/TextEncodingEnum
-      targetPath: /core/json/enums/commonLib/TextEncodingEnum
-      sourcePath: /core/puml/commonLib/TextEncodingEnum.puml
-      title: TextEncodingEnum
       type: string
+      title: TextEncodingEnum
       description: Encodings accepted on ingest and at presentation edges; internal is always UTF-8.
       generate: true
       enum: [UTF-8, windows-1252, ISO-8859-1, ISO-8859-15, Shift_JIS, GB18030, Big5]
@@ -34,6 +51,9 @@ SCHEMAHINTS
         - Japanese legacy encoding (CP932 family).
         - PRC national standard; modern superset covering Unicode.
         - Traditional Chinese legacy encoding.
+      sourcePath: /core/puml/commonLib/TextEncodingEnum.puml
+      targetPath: /core/json/enums/commonLib/TextEncodingEnum
 end note
+!endif
 
 @enduml

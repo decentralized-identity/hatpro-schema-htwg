@@ -1,0 +1,34 @@
+@startuml
+' packages/name/puml/NameDisplayLayouts.puml
+
+!include .\NameDisplayLayout.puml
+
+'relationships
+NameDisplayLayouts "1" -- "1..*" NameDisplayLayout : name layouts
+
+class NameDisplayLayouts {
+  + layoutDescription : InternationalString
+  + nameDisplayLayouts  : nameDisplayLayout[]
+}
+
+!ifndef VIEW_MODE
+note right of NameDisplayLayouts
+SCHEMAHINTS v0.1
+  title: "NameDisplayLayouts"
+
+  required:[
+    layoutDescription, 
+    items
+  ]
+
+  field layoutDescription:
+    $ref: /core/commonLib/InternationalString
+  
+  field items:
+    schema:
+      type  : array
+      items:
+        $ref: /name/NameDisplayLayout
+end note
+!endif
+@enduml

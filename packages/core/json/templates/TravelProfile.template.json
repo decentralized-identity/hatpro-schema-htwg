@@ -1,0 +1,169 @@
+{
+  "hatproIdentifier": {
+    "uuid7": "",
+    "verifiableIdentifier": ""
+  },
+  "version": "0.1.0",
+  "names": [
+    {
+      "namePurpose": {
+        "value": "",
+        "languageConfiguration": {
+          "langLocale": {
+            "langLocale": "en-US"
+          },
+          "encoding": {
+            "encoding": "UTF-8"
+          }
+        }
+      },
+      "languageConfig": {
+        "langLocale": {
+          "langLocale": "en-US"
+        },
+        "encoding": {
+          "encoding": "UTF-8"
+        }
+      },
+      "firstGivenName": {
+        "value": "",
+        "languageConfiguration": {
+          "langLocale": {
+            "langLocale": "en-US"
+          },
+          "encoding": {
+            "encoding": "UTF-8"
+          }
+        }
+      },
+      "secondGivenName": {
+        "value": "",
+        "languageConfiguration": {
+          "langLocale": {
+            "langLocale": "en-US"
+          },
+          "encoding": {
+            "encoding": "UTF-8"
+          }
+        }
+      },
+      "firstSurname": {
+        "value": "",
+        "languageConfiguration": {
+          "langLocale": {
+            "langLocale": "en-US"
+          },
+          "encoding": {
+            "encoding": "UTF-8"
+          }
+        }
+      },
+      "secondSurname": {
+        "value": "",
+        "languageConfiguration": {
+          "langLocale": {
+            "langLocale": "en-US"
+          },
+          "encoding": {
+            "encoding": "UTF-8"
+          }
+        }
+      },
+      "sortName": {
+        "value": "",
+        "languageConfiguration": {
+          "langLocale": {
+            "langLocale": "en-US"
+          },
+          "encoding": {
+            "encoding": "UTF-8"
+          }
+        }
+      },
+      "nameTitles": {
+        "items": [
+          ""
+        ]
+      },
+      "nameSuffixes": {
+        "items": [
+          ""
+        ]
+      },
+      "nameDisplays": {
+        "layoutDescription": {
+          "value": "",
+          "languageConfiguration": {
+            "langLocale": {
+              "langLocale": "en-US"
+            },
+            "encoding": {
+              "encoding": "UTF-8"
+            }
+          }
+        },
+        "items": [
+          {
+            "formatName": {
+              "value": "",
+              "languageConfiguration": {
+                "langLocale": {
+                  "langLocale": "en-US"
+                },
+                "encoding": {
+                  "encoding": "UTF-8"
+                }
+              }
+            },
+            "formatDescription": {
+              "value": "",
+              "languageConfiguration": {
+                "langLocale": {
+                  "langLocale": "en-US"
+                },
+                "encoding": {
+                  "encoding": "UTF-8"
+                }
+              }
+            },
+            "nameFormatScript": {
+              "items": [
+                {
+                  "component": "",
+                  "separator": ""
+                }
+              ]
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "personalCommInfo": {
+    "preferredSpokenLanguages": [
+      {
+        "languageLocale": {
+          "langLocale": "en-US"
+        },
+        "proficiencyLevel": 0,
+        "ranking": 0
+      }
+    ],
+    "preferredWrittenLanguages": [
+      {
+        "languageLocale": {
+          "langLocale": "en-US"
+        },
+        "proficiencyLevel": 0,
+        "ranking": 0
+      }
+    ],
+    "prefDistanceUnit": "",
+    "prefTimeUnit": "",
+    "prefTemperatureUnit": "",
+    "currencyPreferences": {
+      "prefDispCurrency": "",
+      "prefSettlmentCurrency": ""
+    }
+  }
+}

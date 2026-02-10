@@ -1,0 +1,13 @@
+{
+  "$id": "https://schemas.example.org/hatpro/PersonalCommInfo/DistanceUnitEnum.json",
+  "title": "DistanceUnitEnum",
+  "type": "string",
+  "enum": [
+    "METRIC",
+    "IMPERIAL",
+    "MIXED",
+    "NONE",
+    "NOT_SET"
+  ],
+  "x-sourcePath": "/PersonalCommInfo/puml/DistanceUnitEnum.puml"
+}

@@ -1,0 +1,13 @@
+{
+  "$id": "https://schemas.example.org/hatpro/core/commonLib/IATAAirportCodeEnum.json",
+  "title": "IATA Airport Codes",
+  "type": "string",
+  "enum": [
+    "YUL",
+    "BOS SIN",
+    "AMS"
+  ],
+  "x-sourcePath": "/core/puml/commonLib/IATAAirportCodeEnum.puml",
+  "pattern": "^[A-Z]{3}$",
+  "description": "Three-letter airport code"
+}

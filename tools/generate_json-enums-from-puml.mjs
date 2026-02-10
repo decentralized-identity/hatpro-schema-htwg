@@ -1,285 +1,346 @@
 #!/usr/bin/env node
-// generate_json-enums-from-puml.mjs  (v1.2)
-// Enum-only generator: emits enum JSON from PUML SCHEMAHINTS.
+// generate_json-enums-from-puml.mjs  (v1.3 patched)
 //
-// Supports v1.2 keys inside a field block:
-//   enumDefine:
-//     enumId: /core/commonLib/TextEncodingEnum
-//     targetPath: /core/json/enums/commonLib/TextEncodingEnum
-//     sourcePath: /core/puml/commonLib/TextEncodingEnum.puml
-//     title: TextEncodingEnum
-//     type: string | integer
-//     generate: true
-//     enum: [A, B, C] | A, B, C | (block list)
-//     x-enumNames: [..]
-//     x-enumDescriptions:
-//       - ...
+// Generates enum JSON Schema (and optional wrapper *.schema.json) from PlantUML files
+// containing SCHEMAHINTS.
 //
-// Usage:
-//   node tools/generate_json-enums-from-puml.mjs --baseId https://schemas.example.org/hatpro/ [--packagesDir packages] [--file path/to/foo.puml] [--debug]
+// Supports v1.2+ keys inside a field block:
+//   SCHEMAHINTS v0.1
+//     field encoding:
+//       enumDefine:
+//         enumId: /core/commonLib/SomeEnum
+//         type: string
+//         enum: [a, b, c]
+//         generate: true
+//         sourcePath: /core/puml/commonLib/SomeEnum.puml
+//         targetPath: /core/json/enums/commonLib/SomeEnum
 //
-// Authoring guardrails:
-//   • Keep everything under `enumDefine:` indented (no blank lines in the block).
-//   • Use PlantUML comments `' ...` inside the note (avoid `#`).
-//   • Any of these formats for enum values are accepted:
-//       enum: [A, B, C]
-//       enum: A, B, C
-//       enum:
-//         - A
-//         - B
-//         - C
-//   • _genEnum suffix: If you create purely dummy host classes named Something_genEnum,
-//     that convention is for your own clarity; this script only emits enum JSON and never writes class schemas.
+// Patch notes:
+//  - Accept both "end note" and "endnote" (and variants) in PlantUML note parsing.
+//  - Move provenance from top-level "x-sourcePath" to $defs.meta.$comment to satisfy Ajv strict.
 
-import fs from 'fs';
-import path from 'path';
-import process from 'process';
+import fs from "node:fs";
+import path from "node:path";
+import process from "node:process";
+import { fileURLToPath } from "node:url";
 
-const argv = process.argv.slice(2);
-function getArgVal(name, def = undefined) {
-  const i = argv.findIndex(a => a === name || a.startsWith(name + "="));
-  if (i === -1) return def;
-  const eq = argv[i].indexOf("=");
-  if (eq > -1) return argv[i].slice(eq+1);
-  if (i + 1 < argv.length && !argv[i+1].startsWith("--")) return argv[i+1];
-  return true;
-}
-const debug = !!getArgVal("--debug", false);
-function log(...args){ if (debug) console.log(...args); }
+/** Simple CLI arg parser */
+function parseArgs(argv) {
+  const args = {
+    baseId: undefined,
+    packagesDir: "./packages",
+    file: undefined
+  };
 
-let baseId = String(getArgVal("--baseId", "")).trim();
-if (!baseId) {
-  console.error("ERROR: --baseId is required (e.g., --baseId https://schemas.example.org/hatpro/)");
-  process.exit(1);
-}
-if (!/\/$/.test(baseId)) baseId += "/";
-const packagesDir = String(getArgVal("--packagesDir", "packages")).trim();
-const singleFile = getArgVal("--file", null);
-
-function listPumlFiles(root) {
-  const out = [];
-  function walk(dir) {
-    let entries;
-    try { entries = fs.readdirSync(dir, { withFileTypes: true }); }
-    catch { return; }
-    for (const e of entries) {
-      const p = path.join(dir, e.name);
-      if (e.isDirectory()) walk(p);
-      else if (e.isFile() && e.name.toLowerCase().endsWith(".puml")) out.push(p);
+  for (let i = 2; i < argv.length; i++) {
+    const a = argv[i];
+    if (a === "--baseId") {
+      args.baseId = argv[++i];
+    } else if (a === "--packagesDir") {
+      args.packagesDir = argv[++i];
+    } else if (a === "--file") {
+      args.file = argv[++i];
+    } else if (a === "--help" || a === "-h") {
+      args.help = true;
+    } else {
+      // tolerate positional file as a convenience
+      if (!args.file && a && !a.startsWith("-")) args.file = a;
     }
   }
-  walk(root);
+  return args;
+}
+
+function usage() {
+  console.log(`
+Usage:
+  node tools/generate_json-enums-from-puml.mjs --baseId <base> --packagesDir <dir> [--file <pumlFile>]
+
+Examples:
+  node tools/generate_json-enums-from-puml.mjs --baseId https://schemas.example.org/hatpro/ --packagesDir ./packages
+  node tools/generate_json-enums-from-puml.mjs --baseId https://schemas.example.org/hatpro/ --packagesDir ./packages --file packages/physicalLocation/puml/DeliveryContextEnum.puml
+`.trim());
+}
+
+function readText(filePath) {
+  return fs.readFileSync(filePath, "utf8");
+}
+
+function writeText(filePath, content) {
+  fs.mkdirSync(path.dirname(filePath), { recursive: true });
+  fs.writeFileSync(filePath, content, "utf8");
+}
+
+function isPumlFile(file) {
+  return file.toLowerCase().endsWith(".puml");
+}
+
+/** Walk a directory recursively and return all .puml files */
+function listPumlFiles(dir) {
+  const out = [];
+  const stack = [dir];
+  while (stack.length) {
+    const d = stack.pop();
+    const entries = fs.readdirSync(d, { withFileTypes: true });
+    for (const e of entries) {
+      const full = path.join(d, e.name);
+      if (e.isDirectory()) stack.push(full);
+      else if (e.isFile() && isPumlFile(full)) out.push(full);
+    }
+  }
   return out;
 }
 
-function ensureDir(p) { fs.mkdirSync(path.dirname(p), { recursive: true }); }
-
-function parseHintsFromText(text) {
-  const notes = [];
-  const noteRe = /note\s+(?:right|left|over)\s+of[\s\S]*?end note/gi;
-  let m;
-  while ((m = noteRe.exec(text)) !== null) {
-    const block = m[0];
-    if (!/^\s*SCHEMAHINTS\b/m.test(block)) continue;
-    notes.push(parseSchemaHints(block));
-  }
-  return notes.flat();
+/**
+ * Extracts all PlantUML notes "note ... end note/endnote" text blocks.
+ * Patch: end\\s*note accepts endnote, end note, end     note.
+ */
+function extractNoteBlocks(pumlText) {
+  // NOTE: This is intentionally permissive. We match:
+  //   note right of X
+  //   ...
+  //   end note
+  // as well as "endnote"
+  const noteRe = /note\s+(?:right|left|over)\s+of[\s\S]*?end\s*note/gi; // patched
+  const matches = pumlText.match(noteRe);
+  return matches || [];
 }
 
-function parseSchemaHints(block) {
-  const lines = block.replace(/\t/g, "  ").split(/\r?\n/);
-  const results = [];
-  let inHints = false;
-  let current = { fields: {} };
-  let currentField = null;
-
-  function commitIfAny() {
-    if (Object.keys(current.fields).length) results.push(JSON.parse(JSON.stringify(current)));
+/**
+ * Extract SCHEMAHINTS blocks from note blocks.
+ * Returns list of schemahint text (the lines after "SCHEMAHINTS" header).
+ */
+function extractSchemaHints(noteBlocks) {
+  const out = [];
+  for (const note of noteBlocks) {
+    const idx = note.indexOf("SCHEMAHINTS");
+    if (idx < 0) continue;
+    // keep from SCHEMAHINTS to end, then strip leading lines before header
+    const block = note.slice(idx);
+    out.push(block);
   }
+  return out;
+}
 
-  for (let idx = 0; idx < lines.length; idx++) {
-    let raw = lines[idx];
-    if (/^\s*'/.test(raw)) continue; // skip PlantUML comments
-    const line = raw;
-    if (!inHints) { if (/^\s*SCHEMAHINTS\b/.test(line)) inHints = true; continue; }
-    if (/^\s*end note\b/i.test(line)) break;
+/**
+ * Very small "SCHEMAHINTS" parser for enumDefine blocks.
+ * It is intentionally conservative and expects YAML-ish indentation.
+ * Returns array of { enumDefine: {...} } objects.
+ */
+function parseEnumDefines(schemaHintBlocks) {
+  const results = [];
 
-    const f = line.match(/^\s*field\s+([A-Za-z_][A-Za-z0-9_]*)\s*:\s*$/);
-    if (f) { currentField = f[1]; current.fields[currentField] = {}; continue; }
+  for (const block of schemaHintBlocks) {
+    const lines = block.split(/\r?\n/);
 
-    const kv = line.match(/^\s*([A-Za-z][A-Za-z0-9_-]*)\s*:\s*(.*)\s*$/);
-    if (kv && currentField) {
-      let [, key, val] = kv;
-      val = val.trim();
+    // We'll scan for a line that contains "enumDefine:" and parse its indented children
+    for (let i = 0; i < lines.length; i++) {
+      const line = lines[i];
 
-      if (key === "enumDefine" && val === "") {
-        const obj = {};
-        idx = readNestedObject(lines, idx + 1, obj);
-        current.fields[currentField].enumDefine = obj;
-        continue;
+      const m = /^(\s*)enumDefine:\s*$/.exec(line);
+      if (!m) continue;
+
+      const baseIndent = m[1].length;
+      const ed = {};
+      i++;
+
+      for (; i < lines.length; i++) {
+        const l = lines[i];
+        if (!l.trim()) continue;
+
+        const indent = (l.match(/^(\s*)/)?.[1]?.length) ?? 0;
+
+        // Stop when indentation goes back to enumDefine level or less
+        if (indent <= baseIndent) {
+          i--; // step back so outer loop continues correctly
+          break;
+        }
+
+        // Parse "key: value"
+        const kv = /^\s*([A-Za-z0-9_.-]+)\s*:\s*(.*)\s*$/.exec(l);
+        if (!kv) continue;
+
+        const key = kv[1];
+        let val = kv[2];
+
+        // Parse arrays like [a, b, c]
+        if (val.startsWith("[") && val.endsWith("]")) {
+          const inside = val.slice(1, -1).trim();
+          const arr = inside
+            ? inside.split(",").map(x => x.trim()).filter(Boolean)
+            : [];
+          ed[key] = arr;
+        } else if (val === "true" || val === "false") {
+          ed[key] = (val === "true");
+        } else {
+          // keep raw string (no quote stripping here)
+          ed[key] = val;
+        }
       }
-      if ((key === "enum" || key === "x-enumNames" || key === "x-enumDescriptions") && val === "") {
-        const arr = [];
-        idx = readBlockList(lines, idx + 1, arr);
-        current.fields[currentField][key] = arr;
-        continue;
-      }
-      if (/^\[.*\]$/.test(val)) {
-        current.fields[currentField][key] = splitInlineList(val.slice(1,-1));
-        continue;
-      }
-      if (key === "enum" && /,/.test(val)) {
-        current.fields[currentField][key] = splitInlineList(val);
-        continue;
-      }
-      current.fields[currentField][key] = coerceScalar(val);
-      continue;
+
+      results.push(ed);
     }
   }
-  commitIfAny();
+
   return results;
 }
 
-function splitInlineList(s) {
-  return s.split(",").map(x => x.trim()).filter(Boolean).map(stripQuotes);
-}
-function stripQuotes(s) {
-  if ((s.startsWith('"') && s.endsWith('"')) || (s.startsWith("'") && s.endsWith("'"))) {
-    return s.slice(1,-1);
-  }
-  return s;
-}
+/**
+ * Convert enumDefine into:
+ *  - enum JSON schema (DeliveryContextEnum.json)
+ *  - optional wrapper schema (DeliveryContextEnum.schema.json) referencing the enum schema
+ */
+function emitEnumFromDefine(ed, originFile, baseId) {
+  const enumId = ed.enumId;
+  if (!enumId || typeof enumId !== "string") return [];
 
-function readNestedObject(lines, startIdx, outObj) {
-  let idx = startIdx - 1;
-  for (let j = startIdx; j < lines.length; j++) {
-    const raw = lines[j];
-    if (/^\s*'/.test(raw)) { idx = j; continue; }
-    if (/^\s*end note\b/i.test(raw)) { idx = j - 1; break; }
-    if (/^\s*field\s+[A-Za-z_]/.test(raw)) { idx = j - 1; break; }
-    if (!/^\s{2,}\S/.test(raw)) { idx = j - 1; break; }
-    const ln = raw.replace(/\t/g, "  ");
-    const kv2 = ln.match(/^\s*([A-Za-z][A-Za-z0-9_-]*)\s*:\s*(.*)\s*$/);
-    if (!kv2) { idx = j; continue; }
-    let [, k2, v2] = kv2;
-    v2 = v2.trim();
-    if ((k2 === "enum" || k2 === "x-enumNames" || k2 === "x-enumDescriptions") && v2 === "") {
-      const arr = [];
-      const stop = readBlockList(lines, j + 1, arr);
-      outObj[k2] = arr;
-      j = stop; idx = j; continue;
-    }
-    if (/^\[.*\]$/.test(v2)) {
-      outObj[k2] = splitInlineList(v2.slice(1,-1));
-    } else if (k2 === "enum" && /,/.test(v2)) {
-      outObj[k2] = splitInlineList(v2);
-    } else if (/^(true|false)$/i.test(v2)) {
-      outObj[k2] = /^true$/i.test(v2);
-    } else if (/^-?\d+(?:\.\d+)?$/.test(v2)) {
-      outObj[k2] = Number(v2);
-    } else {
-      outObj[k2] = v2;
-    }
-    idx = j;
-  }
-  return idx;
-}
+  const typeName = enumId.split("/").filter(Boolean).pop();
+  if (!typeName) return [];
 
-function readBlockList(lines, startIdx, outArr) {
-  let j = startIdx;
-  for (; j < lines.length; j++) {
-    const raw = lines[j];
-    if (/^\s*'/.test(raw)) continue;
-    if (/^\s*end note\b/i.test(raw)) return j - 1;
-    if (!/^\s{2,}\S/.test(raw)) return j - 1;
-    const m = raw.match(/^\s*(?:[-*]\s+)?(.+)$/);
-    if (!m) return j - 1;
-    let item = m[1].trim();
-    if (item.endsWith(",")) item = item.slice(0, -1).trim();
-    if ((item.startsWith('"') && item.endsWith('"')) || (item.startsWith("'") && item.endsWith("'"))) {
-      item = item.slice(1, -1);
-    }
-    outArr.push(item);
-  }
-  return j - 1;
-}
+  // Determine output target path (repo-relative) from targetPath
+  // targetPath examples:
+  //   /core/json/enums/commonLib/CountrySubdivisionEnum
+  //   /physicalLocation/json/enums/DeliveryContextEnum
+  const targetPath = ed.targetPath;
+  if (!targetPath || typeof targetPath !== "string") return [];
 
-function coerceScalar(v) {
-  if (/^(true|false)$/i.test(v)) return /^true$/i.test(v);
-  if (/^-?\d+(?:\.\d+)?$/.test(v)) return Number(v);
-  return v;
-}
+  const normTarget = targetPath.startsWith("/") ? targetPath.slice(1) : targetPath;
 
-function deriveEnumFileFromEnumId(enumId) {
-  const parts = enumId.replace(/^\//, "").split("/").filter(Boolean);
-  const seg = parts[0];
-  const name = parts[parts.length - 1];
-  const subs = parts.slice(1, -1);
-  const rel = path.join(seg, "json", "enums", ...subs, name + ".json");
-  return path.join(packagesDir, rel);
-}
+  const enumJsonRel = `${normTarget}.json`;
 
-function emitEnumFromDefine(ed, originFile) {
-  const enumId = (ed.enumId || ed.path || "").trim();
-  if (!enumId || !enumId.startsWith("/")) {
-    console.warn(`! Skipping enum with invalid enumId/path in ${originFile}: "${enumId}"`);
-    return;
-  }
-  const targetPath = ed.targetPath ? String(ed.targetPath).trim() : "";
-  const $id = baseId + enumId.replace(/^\//, "") + ".json";
-  const outFile = targetPath
-    ? path.join(packagesDir, targetPath.replace(/^\//, "")) + ".json"
-    : deriveEnumFileFromEnumId(enumId);
+  // Compose $id for enum json
+  const enumJsonId = new URL(enumJsonRel.replace(/\\/g, "/"), baseId).toString();
 
-  let values = [];
-  if (Array.isArray(ed.enum)) values = ed.enum.slice();
-  else if (typeof ed.enum === "string" && ed.enum.length) values = ed.enum.split(",").map(x => x.trim()).filter(Boolean);
+  // Extract values
+  const values = Array.isArray(ed.enum) ? ed.enum.slice() : [];
+  if (!values.length) return []; // generator expects an enum list
 
+  // Build the enum JSON schema node
   const node = {
-    $id,
-    title: ed.title || enumId.split("/").pop(),
+    $id: enumJsonId,
+    title: ed.title || typeName,
     type: (ed.type === "integer" ? "integer" : "string"),
     enum: values
   };
-  if (Array.isArray(ed["x-enumNames"])) node["x-enumNames"] = ed["x-enumNames"].slice();
-  if (Array.isArray(ed["x-enumDescriptions"])) node["x-enumDescriptions"] = ed["x-enumDescriptions"].slice();
-  if (ed.sourcePath) node["x-sourcePath"] = String(ed.sourcePath);
 
-  if (debug) {
-    console.log("— enumDefine parsed —", { originFile, enumId, targetPath, $id, count: node.enum.length });
+  if (typeof ed.description === "string" && ed.description.trim()) {
+    node.description = ed.description.trim();
+  }
+  if (typeof ed.desc === "string" && ed.desc.trim()) {
+    // support desc alias (some files use desc)
+    node.description = ed.desc.trim();
+  }
+  if (typeof ed.pattern === "string" && ed.pattern.trim()) {
+    node.pattern = ed.pattern.trim();
   }
 
-  const shouldGenerate = (typeof ed.generate === "boolean") ? ed.generate : true;
-  if (!shouldGenerate) {
-    console.log(`↷ Skipped (generate:false) ${outFile}`);
-    return;
+  // optional extension values (safe to keep if used)
+  if (Array.isArray(ed["x-enumNames"])) {
+    node["x-enumNames"] = ed["x-enumNames"].slice();
   }
-  ensureDir(outFile);
-  fs.writeFileSync(outFile, JSON.stringify(node, null, 2), "utf-8");
-  console.log(`✓ Wrote enum ${outFile}`);
-}
 
-function processFile(filePath) {
-  const text = fs.readFileSync(filePath, "utf-8");
-  const notes = parseHintsFromText(text);
-  if (debug) console.log(`Parsed ${notes.length} SCHEMAHINTS note(s) in ${filePath}`);
-  notes.forEach(note => {
-    for (const [fname, spec] of Object.entries(note.fields || {})) {
-      if (spec && typeof spec === "object" && spec.enumDefine && typeof spec.enumDefine === "object") {
-        emitEnumFromDefine(spec.enumDefine, filePath);
-      }
+  // Patch: move provenance into $defs.meta.$comment (Ajv strict-safe)
+  if (ed.sourcePath) {
+    node.$defs ??= {};
+    node.$defs.meta = {
+      $comment: JSON.stringify({ sourcePath: String(ed.sourcePath) })
+    };
+  }
+
+  // Wrapper schema output:
+  // If targetPath ends with /json/enums/Name, wrapper usually goes to /json/schemas/Name.schema.json
+  // but this tool has historically emitted a wrapper next to schemas if generator wants.
+  // We infer it by replacing /json/enums/ with /json/schemas/ and appending .schema.json
+  const wrapper = [];
+  const wantsWrapper = true;
+
+  if (wantsWrapper) {
+    const wrapperRel = enumJsonRel
+      .replace(/\/json\/enums\//, "/json/schemas/")
+      .replace(/\.json$/, ".schema.json");
+    const wrapperId = new URL(wrapperRel.replace(/\\/g, "/"), baseId).toString();
+
+    const wrapperNode = {
+      $id: wrapperId,
+      title: `${typeName}`,
+      allOf: [{ $ref: enumJsonId }]
+    };
+
+    // put the same strict-safe provenance on the wrapper too (optional but useful)
+    if (ed.sourcePath) {
+      wrapperNode.$defs ??= {};
+      wrapperNode.$defs.meta = {
+        $comment: JSON.stringify({ sourcePath: String(ed.sourcePath) })
+      };
     }
-  });
+
+    wrapper.push({
+      relPath: wrapperRel,
+      json: JSON.stringify(wrapperNode, null, 2) + "\n"
+    });
+  }
+
+  return [
+    {
+      relPath: enumJsonRel,
+      json: JSON.stringify(node, null, 2) + "\n"
+    },
+    ...wrapper
+  ];
 }
 
 function main() {
-  const files = singleFile ? [path.resolve(process.cwd(), singleFile)] : listPumlFiles(path.resolve(process.cwd(), packagesDir));
-  if (!files.length) {
-    console.warn(`No .puml files found. Root=${path.resolve(process.cwd(), packagesDir)} file=${singleFile||''}`);
-    return;
+  const args = parseArgs(process.argv);
+  if (args.help || !args.baseId) {
+    usage();
+    process.exit(args.help ? 0 : 2);
   }
-  if (debug) console.log("Scanning files:", files);
-  files.forEach(processFile);
+
+  const baseId = args.baseId.endsWith("/") ? args.baseId : (args.baseId + "/");
+  const packagesDir = args.packagesDir;
+
+  const files = [];
+  if (args.file) {
+    files.push(args.file);
+  } else {
+    files.push(...listPumlFiles(packagesDir));
+  }
+
+  let wrote = 0;
+
+  for (const f of files) {
+    const full = path.isAbsolute(f) ? f : path.resolve(f);
+    if (!fs.existsSync(full)) continue;
+
+    const txt = readText(full);
+    const notes = extractNoteBlocks(txt);
+    if (!notes.length) continue;
+
+    const hints = extractSchemaHints(notes);
+    if (!hints.length) continue;
+
+    const enumDefines = parseEnumDefines(hints);
+    if (!enumDefines.length) continue;
+
+    for (const ed of enumDefines) {
+      // Only generate when explicitly requested
+      if (ed.generate !== true && String(ed.generate).toLowerCase() !== "true") continue;
+
+      const outputs = emitEnumFromDefine(ed, full, baseId);
+      if (!outputs.length) continue;
+
+      for (const o of outputs) {
+        // write outputs under packagesDir root
+        const outPath = path.resolve(packagesDir, o.relPath);
+        writeText(outPath, o.json);
+        wrote++;
+      }
+    }
+  }
+
+  // keep quiet on success (your current convention),
+  // but leave a non-zero code only for exceptional failures.
+  // If you want visibility, uncomment:
+  // console.log(`Generated ${wrote} enum artifacts.`);
 }
 
 main();

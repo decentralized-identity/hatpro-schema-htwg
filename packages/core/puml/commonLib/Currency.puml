@@ -1,0 +1,28 @@
+' Currency.puml
+@startuml
+skinparam classAttributeIconSize 0
+class Currency {
+  +amount: string 
+     ' 'amount is patter defined currency format 
+  +currency: CurrencyTypeEnum
+}
+
+note right of Currency
+SCHEMAHINTS v0.1
+title: Currency
+additionalProperties: false
+required:[amount,currency]
+
+field amount:
+  type: string
+  pattern: ^-?(?:0|[1-9]\d{0,11})\.\d{2}$
+  desc: Monetary amount as a string; optional leading '-', exactly 2 decimal digits; no thousands separators; up to 12 digits before the decimal
+  default:$0.00
+
+' currency type
+field currency: 
+  type: string
+  enumValuesFrom: /core/commonLib/CurrencyTypeEnum
+  default:USD
+end note
+@enduml

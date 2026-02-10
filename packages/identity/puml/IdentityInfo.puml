@@ -7,6 +7,8 @@ class IdentityInfo {
   +dateOfBirth: date
   +nationalities: string[]
 }
+
+!ifndef VIEW_MODE
 note right of IdentityInfo
 SCHEMAHINTS v0.1
 title: IdentityInfo
@@ -29,4 +31,5 @@ field nationalities:
   itemsType: string
   desc: "ISO 3166-1 alpha-3 (TBD enforce pattern)."
 end note
+!endif
 @enduml

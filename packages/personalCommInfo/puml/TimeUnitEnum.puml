@@ -1,0 +1,29 @@
+@startuml
+skinparam classAttributeIconSize 0
+'Uncomment the statement below to produce diagrams (notes with SCHEMA Hints hidden)
+'!define VIEW_MODE   
+'!define HIDE_COMMENTS
+
+enum TimeUnitEnum {
+  CLOCK_12_HOUR   ' 12-hour clock (AM/PM)
+  CLOCK_24_HOUR   ' 24-hour clock
+  EITHER_OK       ' no strong preference; either is acceptable
+}
+
+!ifndef VIEW_MODE
+note right of TimeUnitEnum
+SCHEMAHINTS v0.1
+title: TimeUnitEnum
+field encoding:
+  enumDefine:
+    enumId: /PersonalCommInfo/TimeUnitEnum
+    type: string
+    enum: [CLOCK_12_HOUR, CLOCK_24_HOUR, NONE, NOT_SET]
+    desc: Preferred time display format.
+    generate: true
+    sourcePath: /PersonalCommInfo/puml/TimeUnitEnum.puml
+    targetPath: /PersonalCommInfo/json/enums/TimeUnitEnum
+end note
+!endif
+
+@enduml

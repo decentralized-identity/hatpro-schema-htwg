@@ -102,11 +102,15 @@ SCHEMAHINTS
     minLength: <int>                # strings
     maxLength: <int>
 
-  # optional class-level logical constraints
+  # optional class-level logical constraints for properties for a class which goes beyond "requires" lists NOTE these statements must apper in the SchemaHints BEFORE the definitions of the properties
+  
   xor: [[a, b], [c, d, e]]
   oneOf: [<schemaRef> ...]
   allOf: [<schemaRef> ...]
   anyOf: [<schemaRef> ...]
+  atleastone: [<schemaRef> ...]
+
+See the supplemental document on how these mix and match
 ```
 
 ---

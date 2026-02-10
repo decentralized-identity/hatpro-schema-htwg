@@ -1,0 +1,33 @@
+' PrioritizedAirport.puml
+@startuml
+skinparam classAttributeIconSize 0
+'!define VIEW_MODE
+
+'Bring in the shared types
+!include ../../core/puml/commonLib/IATAAirportCodeEnum.puml
+
+!ifndef VIEW_MODE
+   PrioritizedAirport --> IATAAirportCodeEnum
+!endif
+
+class PrioritizedAirport{
+  +priority: integer
+  +airport: IATAAirportCodeEnum
+}
+
+!ifndef VIEW_MODE
+note right of PrioritizedAirport
+SCHEMAHINTS v0.1
+title: PrioritizedAirport
+additionalProperties: false
+required: [priority, airport]
+
+field priority: integer
+
+field airport:
+  $ref: /core/commonLib/IATAAirportCodeEnum
+end note
+!endif
+
+@enduml
+

@@ -1,0 +1,29 @@
+@startuml
+skinparam classAttributeIconSize 0
+'Uncomment the statement below to produce diagrams (notes with SCHEMA Hints hidden)
+'!define VIEW_MODE   
+'!define HIDE_COMMENTS
+
+enum DistanceUnitEnum {
+  'sample values
+  'METRIC, IMPERIAL, MIXED, NONE, NOT_SET
+}
+
+!ifndef VIEW_MODE
+note right of DistanceUnitEnum
+SCHEMAHINTS v0.1
+  title: DistanceUnitEnum
+  field encoding:
+    enumDefine:
+      title: DistanceUnitEnum
+      enumId: /PersonalCommInfo/DistanceUnitEnum
+      type: string
+      enum: [METRIC, IMPERIAL, MIXED, NONE, NOT_SET]
+      desc: Preferred distance unit system for display.
+      generate: true
+      sourcePath: /PersonalCommInfo/puml/DistanceUnitEnum.puml
+      targetPath: /PersonalCommInfo/json/enums/DistanceUnitEnum
+end note
+!endif
+
+@enduml

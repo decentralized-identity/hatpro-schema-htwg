@@ -1,0 +1,24 @@
+@startuml
+' packages/name/puml/NameTitles.puml
+
+!include ./NameTitleEnum.puml
+
+class NameTitles {
+  + items : NameTitleEnum
+}
+
+NameTitles "0..*" -- NameTitleEnum : items
+
+!ifndef VIEW_MODE
+note right of NameTitles
+SCHEMAHINTS v0.1
+  title: "NameTitles"
+
+  field items:
+    schema:
+      type  : array
+      items:
+        $ref: /name/NameTitleEnum
+end note
+!endif
+@enduml

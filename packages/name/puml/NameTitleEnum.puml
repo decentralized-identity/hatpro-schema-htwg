@@ -1,0 +1,25 @@
+@startuml
+' packages/name/puml/NameComponent.enum.puml
+
+enum NameTitleEnum {
+  'sample values
+   'Mr, Mrs, Ms, M, Dr
+}
+
+!ifndef VIEW_MODE
+note right of NameTitleEnum
+SCHEMAHINTS
+  title: NameTitleEnum
+  field encoding:
+    enumDefine:
+      title: NameTitleEnum
+      enumId: /name/NameTitleEnum
+      type: string
+      description: Name titles - currently a single list, future extension - titles by catagory
+      enum: [Mr, Mrs, Ms, M, Dr]
+      generate: true
+      sourcePath: /name/puml/NameTitleEnum.puml
+      targetPath: /name/json/enums/NameTitleEnum
+end note
+!endif
+@enduml

@@ -1,0 +1,12 @@
+{
+  "$id": "https://schemas.example.org/hatpro/personalCommInfo/TempUnitsEnum.json",
+  "title": "Temp Unit enum codes",
+  "type": "string",
+  "enum": [
+    "CELCIUS",
+    "FAHRENHEIT",
+    "NONE",
+    "NOT_SET"
+  ],
+  "x-sourcePath": "/personalCommInfo/puml/TempUnitsEnum.puml"
+}

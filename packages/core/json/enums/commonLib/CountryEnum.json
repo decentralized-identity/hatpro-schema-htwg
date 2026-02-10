@@ -1,0 +1,12 @@
+{
+  "$id": "https://schemas.example.org/hatpro/core/commonLib/CountryEnum.json",
+  "title": "CountryEnum",
+  "type": "string",
+  "enum": [
+    "US",
+    "CA"
+  ],
+  "x-sourcePath": "/core/puml/commonLib/CountryEnum.puml",
+  "pattern": "^[A-Z]{2}$",
+  "description": "ISO 3166-1 tag"
+}

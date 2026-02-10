@@ -1,0 +1,34 @@
+' DateRAnge.puml
+@startuml
+skinparam classAttributeIconSize 0
+!include ./Date.puml
+
+' Releationships
+DateRange "1" --> "2" Date : date
+
+class Date {
+  +date: string 
+}
+
+class DateRange {
+  +start: Date
+  +end: Date 
+}
+
+!ifndef VIEW_MODE
+note right of DateRange
+SCHEMAHINTS v0.1
+title: Date
+additionalProperties: false
+required:[start, end]
+
+field start:
+  type: string
+  $ref: /core/commonLib/Date
+
+field end:
+  type: string
+  $ref: /core/commonLib/Date
+end note
+!endif
+@enduml

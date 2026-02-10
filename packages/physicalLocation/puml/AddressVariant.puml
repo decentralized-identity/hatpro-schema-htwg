@@ -1,0 +1,96 @@
+' Modelling/PhysicalLocation/AddressVariant.puml
+@startuml
+'title AddressVariant
+'Uncomment the statement below to produce diagrams (notes with SCHEMA Hints hidden)
+'!define VIEW_MODE
+
+skinparam classAttributeIconSize 0
+
+' =========================
+' Dependencies
+' =========================
+
+' CommonLib
+!include ../../core/puml/commonLib/InternationalString.puml
+!include ../../core/puml/commonLib/LanguageConfiguration.puml
+
+' Segment-local
+!include ./AddressContextEnum.puml
+
+'dependencies
+AddressVariant --> AddressContextEnum
+AddressVariant --> LanguageConfiguration
+AddressVariant --> InternationalString
+
+
+' =========================
+' Class
+' =========================
+
+class AddressVariant {
+
+  ' Variant selectors
+  +deliveryContext: AddressContextEnum
+  +language: LanguageConfiguration
+
+  ' Address label lines (authoritative rendering)
+  +addressLine1: InternationalString
+  +addressLine2: InternationalString
+  +addressLine3: InternationalString
+
+  ' Locality text (language / script dependent)
+  +cityText: InternationalString
+  +subdivisionText: InternationalString
+  +subdivisionAbbreviation: InternationalString
+
+  ' Postal / country rendering
+  +postalCodeText: InternationalString
+  +countryText: InternationalString
+}
+
+!ifndef VIEW_MODE
+note right of AddressVariant
+SCHEMAHINTS v0.1
+  title: AddressVariant
+  additionalProperties: false
+
+  ' Keep required minimal to avoid over-constraining address completeness rules
+  required:[
+    deliveryContext,
+    language
+  ]
+
+  field deliveryContext:
+    $ref: /physicalLocation/AddressContextEnum
+
+  field language:
+    $ref: /core/commonLib/LanguageConfiguration
+
+  ' Address label lines (presentation)
+  field addressLine1:
+    $ref: /core/commonLib/InternationalString
+
+  field addressLine2:
+    $ref: /core/commonLib/InternationalString
+
+  field addressLine3:
+    $ref: /core/commonLib/InternationalString
+
+  field cityText:
+    $ref: /core/commonLib/InternationalString
+
+  field subdivisionText:
+    $ref: /core/commonLib/InternationalString
+
+  field subdivisionAbbreviation:
+    $ref: /core/commonLib/InternationalString
+
+  field postalCodeText:
+    $ref: /core/commonLib/InternationalString
+
+  field countryText:
+    $ref: /core/commonLib/InternationalString
+end note
+!endif
+
+@enduml

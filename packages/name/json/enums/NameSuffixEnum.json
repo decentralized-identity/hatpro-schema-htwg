@@ -1,0 +1,21 @@
+{
+  "$id": "https://schemas.example.org/hatpro/name/NameSuffixEnum.json",
+  "title": "NameSuffixEnum",
+  "type": "string",
+  "enum": [
+    "Jr.",
+    "Sr.",
+    "II",
+    "III",
+    "IV",
+    "PhD",
+    "MD",
+    "LLB",
+    "JD",
+    "Esq.",
+    "CPA",
+    "P.Eng."
+  ],
+  "x-sourcePath": "/name/puml/NameSuffixEnum.puml",
+  "description": "Name suffixes - currently a single list, future extension - Suffixes by catagory (e.g, academic degrees, professional designations)"
+}

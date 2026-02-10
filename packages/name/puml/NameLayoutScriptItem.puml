@@ -1,0 +1,36 @@
+@startuml
+' packages/name/puml/NameLayoutScriptItem.puml
+
+!include ./NameComponentEnum.puml
+!include ./NameSeparatorEnum.puml
+
+NameLayoutScriptItem "1" --> "1" NameComponentEnum : component
+NameLayoutScriptItem "1" --> "1" NameSeparatorEnum : separator
+
+class NameLayoutScriptItem {
+  +component      : NameComponentEnum
+  +separator      : NameSeparatorEnum
+  +sequenceNumber? : integer
+}
+
+!ifndef VIEW_MODE
+note right of NameLayoutScriptItem
+SCHEMAHINTS v0.1
+  title: "NameLayoutScriptItem"
+
+  required:[component]
+
+  field component:
+    $ref: /name/NameComponentEnum
+    desc: "Which Name component to insert at this step."
+
+  field separator:
+    $ref: /name/NameSeparatorEnum
+    desc: "Optional separator appended after this component."
+
+  field sequenceNumber:
+    type: integer
+    desc: "Optional explicit ordinal; if present, lower numbers are rendered first. Array order remains authoritative."
+end note
+!endif
+@enduml

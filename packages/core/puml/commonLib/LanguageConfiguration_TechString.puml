@@ -1,0 +1,35 @@
+' LanguageConfiguration_TechString.puml
+@startuml
+skinparam classAttributeIconSize 0
+
+class LanguageConfiguration_TechString {
+  +langLocale: string
+  +encoding: string
+}
+
+required [langLocale, encoding]
+
+note left of LanguageConfiguration_TechString
+This class follows the same structurd/pattern as LanguageConfiguration,
+but the vlaus for langLocale and encoding are fixed
+end note
+
+!ifndef VIEW_MODE
+note right of LanguageConfiguration_TechString
+SCHEMAHINTS v0.1
+title: LanguageConfiguration_TechString
+additionalProperties: false
+required:[langLocale, encoding]
+
+  field langLocale:
+    type: string
+    const: en-US
+    default: en-US
+
+  field encoding:
+    type: string
+    const: UTF-8
+    default: UTF-8
+end note
+!endif
+@enduml

@@ -1,0 +1,29 @@
+@startuml
+skinparam classAttributeIconSize 0
+'Uncomment the statement below to produce diagrams (notes with SCHEMA Hints hidden)
+'!define VIEW_MODE   
+'!define HIDE_COMMENTS
+
+enum SomeEnum {
+  'sample values
+  'DOMESTIC, INTERNATIONAL
+  }
+
+!ifndef VIEW_MODE
+note right of SomeEnum
+SCHEMAHINTS v0.1
+  title: SomeEnum
+  field encoding:
+    enumDefine:
+      title: Temp Unit enum codes
+      enumId: /physicalLocation/SomeEnum
+      type: string
+      enum: [DOMESTIC, INTERNATIONAL]
+      desc: international english names for temperature measurement scales
+      generate: true
+      sourcePath: /physicalLocation/puml/SomeEnum.puml
+      targetPath: /physicalLocation/json/enums/SomeEnum
+end note
+!endif
+
+@enduml

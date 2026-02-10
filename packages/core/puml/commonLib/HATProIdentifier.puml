@@ -1,0 +1,42 @@
+@startuml
+' HATProIdentifier (root composition view)
+skinparam classAttributeIconSize 0
+
+'Uncomment the statement below to produce diagrams (notes with SCHEMA Hints hidden)
+'!define VIEW_MODE   
+'!define HIDE_COMMENTS
+
+class HATProIdentifier {
+  +uuid7: string
+  +verifiableIdentifier: string
+}
+
+!ifndef HIDE_COMMENTS
+note left of HATProIdentifier
+  HATPro supports one or both forms of identifiers
+    - verifiableIdentifier, which is a W3C DID
+    - uuidv7 identifier, which is "DID like" but is compatible with non-DID systems
+end note
+!endif
+
+!ifndef VIEW_MODE
+note right of HATProIdentifier
+SCHEMAHINTS v0.1
+  title: HATProIdentifier
+  additionalProperties: false
+
+  atleastone:(uuid7|verifiableIdentifier)
+
+  field uuid7:
+    type: string
+    pattern: "^[0-9a-f]{8}-[0-9a-f]{4}-7[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$"
+
+  field verifiableIdentifier:
+    type: string
+    pattern: "^did:[a-z0-9]+:[A-Za-z0-9.\\-_:]+$"
+    ' W3C DID format
+end note
+!endif
+
+@enduml
+
