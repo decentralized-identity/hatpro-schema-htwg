@@ -1,0 +1,27 @@
+@startuml
+skinparam classAttributeIconSize 0
+
+class TestXor {
+  +email: string
+  +phone: string
+}
+
+note right of TestXor
+SCHEMAHINTS v0.1
+  title: TestXor
+  additionalProperties: false
+
+  ' LOGICAL (ROOT-LEVEL) HINTS -------------
+  xor: [email, phone]
+
+  ' FIELD HINTS -----------------------------
+  field email:
+    type: string
+    format: email
+    desc: "Email contact; used when present"
+
+  field phone:
+    type: string
+    desc: "Phone contact; used when present"
+end note
+@enduml

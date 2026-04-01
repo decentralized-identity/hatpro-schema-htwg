@@ -1,0 +1,29 @@
+@startuml
+skinparam classAttributeIconSize 0
+'Uncomment the statement below to produce diagrams (notes with SCHEMA Hints hidden)
+'!define VIEW_MODE   
+'!define HIDE_COMMENTS
+
+enum TempUnitEnum {
+  'sample values
+  'CELCIUS, FAHRENHEIT, NONE, NOT_SET
+}
+
+!ifndef VIEW_MODE
+note right of TempUnitEnum
+SCHEMAHINTS v0.1
+  title: TempUnitEnum
+  field encoding:
+    enumDefine:
+      title: Temp Unit enum codes
+      enumId: /personalCommInfo/TempUnitsEnum
+      type: string
+      enum: [CELCIUS, FAHRENHEIT, NONE, NOT_SET]
+      desc: international english names for temperature measurement scales
+      generate: true
+      sourcePath: /personalCommInfo/puml/TempUnitsEnum.puml
+      targetPath: /personalCommInfo/json/enums/TempUnitsEnum
+end note
+!endif
+
+@enduml

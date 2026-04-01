@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 /**
  * SCHEMAHINTS linter (with valuePattern + enumFrom policy)
- * - Base dir from positional arg or --packagesDir
+ * - Base dir from positional arg or --packagesDir; optional --package filter (segment under base dir)
  * - Validates SCHEMAHINTS field blocks
  * - enumDefine: allows documented keys, requires enumId
  *   * NEW: allows "valuePattern", "x-standard", "x-standardRef"
@@ -18,6 +18,7 @@ import path from 'node:path';
 const argv = process.argv.slice(2);
 
 let baseDir = null;
+let packageFilter = null; // optional package/segment filter under baseDir
 let checkTargets = false;
 let format = 'text';
 let outFile = null;
@@ -31,6 +32,9 @@ for (let i = 0; i < argv.length; i++) {
   if (a === '--packagesDir') {
     const v = argv[i + 1];
     if (v && !v.startsWith('-')) { baseDir = v; i++; }
+  } else if (a === '--package' || a.startsWith('--package=')) {
+    const v = a.includes('=') ? a.split('=')[1] : argv[i + 1];
+    if (v && !v.startsWith('-')) { packageFilter = v.trim(); if (!a.includes('=')) i++; }
   } else if (a === '--checkTargets') {
     checkTargets = true;
   } else if (a.startsWith('--format')) {
@@ -66,7 +70,7 @@ function push(ary, type, file, line, msg){ ary.push({ type, file, line, message:
 const allowedEnumKeys = new Set([
   'enumId','targetPath','sourcePath','title','type','generate','enum',
   'x-enumNames','x-enumDescriptions','x-order','x-deprecated','x-aliases',
-  'description','valuePattern','x-standard','x-standardRef'
+  'description','desc', 'pattern','valuePattern','x-standard','x-standardRef'
 ]);
 
 function lintFile(fileAbs, rootDir, { checkTargets, forbidEnumFrom }) {
@@ -80,6 +84,14 @@ function lintFile(fileAbs, rootDir, { checkTargets, forbidEnumFrom }) {
 
     for (let j=i+1;j<lines.length;j++){
       const l2 = lines[j];
+
+      // stop when end note / endnote is reached
+      if (/^\s*endnote\b/i.test(l2) || /^\s*end\s+note\b/i.test(l2)) break;
+
+      // disallow "$ref =" inside SCHEMAHINTS (must use "$ref:")
+      if (/\$ref\s*=/.test(l2)){
+        push(issues, 'errors', rel, j+1, 'Use "$ref:" (colon) instead of "$ref =" inside SCHEMAHINTS blocks');
+      }
 
       // FIELD start
       const mField = l2.match(/^\s*field\s+([A-Za-z0-9_\-]+)\s*:\s*$/);
@@ -199,7 +211,15 @@ function lintFile(fileAbs, rootDir, { checkTargets, forbidEnumFrom }) {
 }
 
 // Run
-const pumlFiles = walk(baseDir).filter(f => /[/\\]puml[/\\]/i.test(f));
+let pumlFiles = walk(baseDir).filter(f => /[/\\]puml[/\\]/i.test(f));
+
+if (packageFilter) {
+  // Restrict to a single package/segment under baseDir
+  const scopedRoot = path.join(baseDir, packageFilter);
+  const scopedNorm = scopedRoot.replace(/\\/g, '/').toLowerCase();
+  pumlFiles = pumlFiles.filter(f => f.replace(/\\/g, '/').toLowerCase().startsWith(scopedNorm.toLowerCase() + '/'));
+}
+
 const allIssues = [];
 for (const f of pumlFiles){
   allIssues.push(...lintFile(f, baseDir, { checkTargets, forbidEnumFrom }));
@@ -220,6 +240,7 @@ if (format === 'json'){
   const out = [];
   out.push(`SCHEMAHINTS Lint Report`);
   out.push(`Base: ${baseDir}`);
+  if (packageFilter) out.push(`Scope: ${packageFilter}`);
   out.push(`Files: ${pumlFiles.length}`);
   out.push(`Errors: ${errors.length}  Warnings: ${warnings.length}${strict ? ' (strict)' : ''}`);
   out.push('');

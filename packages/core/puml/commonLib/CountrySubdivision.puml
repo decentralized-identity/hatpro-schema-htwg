@@ -1,0 +1,54 @@
+' CountryState.puml
+@startuml
+skinparam classAttributeIconSize 0
+
+'Uncomment the statement below to produce diagrams (notes with SCHEMA Hints hidden)
+'!define VIEW_MODE   
+'!define HIDE_COMMENTS
+
+class CountrySubdivision {
+  +country: CountryEnum
+  +stateProv: SubdivisionEnum
+  +countryStateProv: CountrySubdivisionEnum
+}
+
+!ifndef HIDE_COMMENTS
+note left of CountrySubdivision 
+Country can offer multiple presentations
+ + country: Country Code only:  ISO 3166-1
+ + stateProv: ISO 3166-2 Subdivision code only
+ + countryStatProv: ISO 3166-2 Composite mode
+   e.g. us-CA - is country=us, state=California
+
+All 3 properties can be populated, only country is mandatory
+end note
+!endif
+
+!ifndef VIEW_MODE
+note right of CountrySubdivision
+SCHEMAHINTS v0.1
+title: CountrySubdivision
+additionalProperties: false
+required:[country]
+
+field country:
+  type: string
+  enumValuesFrom: /core/commonLib/CountryEnum
+  description: ISO 3166-1 Country Code
+  default: us
+
+field stateProv:
+  type: string
+  enumValuesFrom: /core/commonLib/SubDivisionEnum
+  description: ISO 3166-2 SubDivision (state/province) Code
+  default:CA
+
+field countryStateProv:
+  type: string
+  enumValuesFrom: /core/commonLib/CountrySubdivisionEnum
+  description: ISO 3166-2 Composite (Country-SubDivision) code
+  enumValuesFrom: /core/commonLib/CountryState
+  default: us-CA
+end note
+!endif
+@enduml

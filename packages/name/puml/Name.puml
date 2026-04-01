@@ -1,0 +1,110 @@
+@startuml
+title Name (name segment)
+
+'Uncomment the statement below to produce diagrams (notes with SCHEMA Hints hidden)
+'!define VIEW_MODE
+
+!include  ./NameTitles.puml
+!include  ./NameSuffixes.puml
+!include  ./NameDisplayLayouts.puml
+!include  ../../core/puml/commonLib/InternationalString.puml
+
+
+class Name {
+  + namePurpose     : InternationalString
+  + languageConfig  : LanguageConfiguration
+
+' Core Name components:
+  + firstGivenName  : InternationalString
+  + secondGivenName : InternationalString
+  + firstSurname    : InternationalString
+  + secondSurname   : InternationalString
+  + sortName        : InternationalString
+
+  + nameTitles?    : NameTitles
+  + nameSuffixes?  : NameSuffixes
+
+  ' Name Layout Display Scripts (can be multiple
+    each with a different purpose)
+  + nameDisplayLayouts : NameDisplayLayouts
+}
+
+' Relationships for Name segment
+Name ..> InternationalString
+' Language configuration (core/commonLib)
+Name "1" *-- "1" LanguageConfiguration : languageConfig
+' Decorator classes for titles/suffixes (name segment)
+Name "1" --> "0..*" NameTitles        : nameTitles
+Name "1" --> "0..*" NameSuffixes      : nameSuffixes
+' Display layouts (name segment)
+Name "1" --> "1..*" NameDisplayLayouts : nameDisplayLayouts
+
+!ifndef HIDE_COMMENTS
+note left of Name
+The core of Name is:
+ - given names (first, second)
+ - surnames (first, second)
+ - sortName - preferred name for services to sort by
+with optional "Decorators":
+ - Titles (e.g. Mr., Dr.) 
+ - NameSuffixes (e.g. PhD, LLB, Jr., III)
+   NameDisplayLayouts
+
+Names can be in any language/locale, etc. The content of 
+first and second given and surnames and order of presentation
+are culture dependent.
+end note
+!endif
+
+!ifndef VIEW_MODE
+note right of Name
+SCHEMAHINTS v0.1
+  title: "Name"
+  additionalProperties: false
+
+  required:[
+    namePurpose,
+    langLocale,
+    encoding,
+    firstGivenName,
+    firstSurname,
+    languageConfig,
+    nameDisplays
+  ]
+
+  field namePurpose:
+    $ref: /core/commonLib/InternationalString
+    desc = "Purpose/context of this name (e.g., legal, display, loyalty profile)."
+
+  field languageConfig:
+    $ref: /core/commonLib/LanguageConfiguration
+    desc = "Language/locale/encoding of the name."
+
+  field firstGivenName:
+    $ref: /core/commonLib/InternationalString
+
+  field secondGivenName:
+    $ref: /core/commonLib/InternationalString
+
+  field firstSurname:
+    $ref: /core/commonLib/InternationalString
+
+  field secondSurname:
+    $ref: /core/commonLib/InternationalString
+
+  field sortName:
+    $ref: /core/commonLib/InternationalString
+    desc = "Preferred string for sorting within this profile."
+
+  field nameTitles:
+    $ref: /name/NameTitles
+  
+  field nameSuffixes:
+    $ref: /name/NameSuffixes
+
+  field nameDisplays:
+    $ref: /name/NameDisplayLayouts
+end note
+!endif
+
+@enduml

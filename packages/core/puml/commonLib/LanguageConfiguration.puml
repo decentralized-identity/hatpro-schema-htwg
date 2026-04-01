@@ -1,0 +1,37 @@
+' LanguageConfiguration.puml
+@startuml
+skinparam classAttributeIconSize 0
+
+'Uncomment the statement below to produce diagrams (notes with SCHEMA Hints hidden)
+'!define VIEW_MODE   
+
+!include ./LanguageLocale.puml
+!include ./LanguageEncoding.puml
+
+'Relationships
+  LanguageConfiguration "1" --> "1" LanguageLocale : langLocale
+  LanguageConfiguration "1" --> "1" LanguageEncoding : encoding
+
+class LanguageConfiguration {
+  +langLocale: LanguageLocale
+  +encoding: LanguageEncoding
+}
+
+!ifdef VIEW_MODE
+!endif
+
+!ifndef VIEW_MODE
+note right of LanguageConfiguration
+SCHEMAHINTS v0.1
+title: LanguageConfiguration
+additionalProperties: false
+required:[langLocale, encoding]
+
+field langLocale:
+  $ref: /core/commonLib/LanguageLocale
+
+field encoding:
+  $ref: /core/commonLib/LanguageEncoding
+end note
+!endif
+@enduml

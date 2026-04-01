@@ -1,0 +1,40 @@
+@startuml
+title CountrySubdivisionEnum 
+
+' Dummy Class used in generation of an enum.json file.
+enum CountrySubdivisionEnum {
+  'sample values
+    'US-CA
+    'US-NY
+}
+
+!ifndef HIDE_COMMENTS
+note bottom of CountrySubdivisionEnum
+   Composite code for Country and Subdivision (State, Province, etc.)
+      enum: [US-CA, US-NY] (US-California, US-New York)
+      description: ISO 3166-2      
+end note
+!endif
+
+!ifndef VIEW_MODE
+note right of CountrySubdivisionEnum
+SCHEMAHINTS
+  title: CountrySubdivisionEnum
+  field encoding:
+    desc: Valid ISO 3166-2 SubDivision codes
+    enumDefine:
+      title: CountrySubdivisionEnum
+      enumId: /core/commonLib/CountrySubdivisionEnum
+      type: string
+      pattern: ^[A-Z]{2}-[A-Z0-9]{1,3}$
+      description: ISO 3166-2 Composite tag
+      generate: true
+      enum: [US-CA, US-NY]
+      x-standard: ISO 3166-2
+      x-standardRef: https://en.wikipedia.org/wiki/ISO_3166-2
+      x-standardRef: https://www.iso.org/obp/ui#iso:std:iso:3166:-2:ed-4:v1:en
+      sourcePath: /core/puml/commonLib/CountrySubdivisionEnum.puml
+      targetPath: /core/json/enums/commonLib/CountrySubdivisionEnum
+end note
+!endif
+@enduml

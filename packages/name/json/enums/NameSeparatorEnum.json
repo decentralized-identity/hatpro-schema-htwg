@@ -1,0 +1,14 @@
+{
+  "$id": "https://schemas.example.org/hatpro/name/NameSeparatorEnum.json",
+  "title": "NameSeparatorEnum",
+  "type": "string",
+  "enum": [
+    "comma",
+    "dash",
+    "backslash",
+    "space",
+    "none"
+  ],
+  "x-sourcePath": "/name/puml/NameSeparatorEnum.puml",
+  "description": "Name suffixes - currently a single list, future extension - Suffixes by catagory (e.g, academic degrees, professional designations)"
+}

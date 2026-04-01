@@ -1,0 +1,12 @@
+{
+  "$id": "https://schemas.example.org/hatpro/core/commonLib/CountrySubdivisionEnum.json",
+  "title": "CountrySubdivisionEnum",
+  "type": "string",
+  "enum": [
+    "US-CA",
+    "US-NY"
+  ],
+  "x-sourcePath": "/core/puml/commonLib/CountrySubdivisionEnum.puml",
+  "pattern": "^[A-Z]{2}-[A-Z0-9]{1,3}$",
+  "description": "ISO 3166-2 Composite tag"
+}

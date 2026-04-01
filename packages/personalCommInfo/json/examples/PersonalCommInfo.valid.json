@@ -1,0 +1,27 @@
+{
+  "preferredSpokenLanguages": [
+    {
+      "languageLocale": {
+        "langLocale": "en-US"
+      },
+      "proficiencyLevel": 9,
+      "ranking": 8
+    }
+  ],
+  "preferredWrittenLanguages": [
+    {
+      "languageLocale": {
+        "langLocale": "en-US"
+      },
+      "proficiencyLevel": 7,
+      "ranking": 4
+    }
+  ],
+  "prefDistanceUnit": "MIXED",
+  "prefTimeUnit": "24h",
+  "prefTemperatureUnit": "celsius",
+  "currencyPreferences": {
+    "prefDispCurrency": "CAD",
+    "prefSettlmentCurrency": "EUR"
+  }
+}

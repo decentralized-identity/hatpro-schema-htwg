@@ -1,0 +1,33 @@
+@startuml
+' packages/name/puml/NameSeparatorEnum.puml
+
+enum NameSeparatorEnum {
+  'sample values
+      'comma, dash, backslach, space, none
+}
+
+!ifndef HIDE_COMMENTS
+note bottom of NameSeparatorEnum
+Enums must be mapped to the appropriate separators character
+MUST come from runtime lookup tables
+keyed by (separator enum value, language/locale, encoding).
+end note
+!endif
+
+!ifndef VIEW_MODE
+note right of NameSeparatorEnum
+SCHEMAHINTS
+  title: NameTestEnum
+  field encoding:
+    enumDefine:
+      title: NameSeparatorEnum
+      enumId: /name/NameSeparatorEnum
+      type: string
+      description: Name suffixes - currently a single list, future extension - Suffixes by catagory (e.g, academic degrees, professional designations)
+      enum: [comma, dash, backslash, space, none]
+      generate: true
+      sourcePath: /name/puml/NameSeparatorEnum.puml
+      targetPath: /name/json/enums/NameSeparatorEnum
+end note
+!endif
+@enduml

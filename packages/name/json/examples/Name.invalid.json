@@ -1,0 +1,11 @@
+{
+  "namePurpose": "Legal name",
+  "languageLocale": {
+    "language": "en",
+    "region": "CA"
+  },
+  "firstGivenName": {
+    "text": "Norah",
+    "language": "en"
+  }
+}

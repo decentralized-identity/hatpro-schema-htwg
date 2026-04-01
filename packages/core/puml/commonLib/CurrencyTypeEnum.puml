@@ -1,26 +1,27 @@
 @startuml
-title CurrencyTypeEnum — v1.2 (enumId / targetPath / sourcePath)
+title CurrencyTypeEnum
 
-' Dummy Class used in generation of an enum.json file. Class name must end with "_genEnum"
-class CurrencyType_genEnum {
+class CurrencyTypeEnum {
+  'sample values
+   'USD, US Dollar
+   'EUR, Euro
+   'JPY, Japanese Yen
 }
 
-note right of CurrencyType_genEnum
+note right of CurrencyTypeEnum
 SCHEMAHINTS
-  title: CurrencyTypeEnum
   field encoding:
     enumDefine:
       enumId: /core/commonLib/CurrencyTypeEnum
-      title: ISO 4217 Currency Codes
-      description: Three-letter ISO 4217 codes (e.g., USD, EUR, CAD)      targetPath: /core/json/enums/commonLib/CurrencyTypeEnum
-      sourcePath: /core/puml/commonLib/CurrencyTypeEnum.puml
-      targetPath: /core/json/enums/commonLib/CurrencyTypeEnum
       type: string
-      valuePattern: ^[A-Z]{3}$
-      enum: [USD, CDN, EUR, JPY, SAR]
+      pattern: ^[A-Z]{3}$
+      description: Three-letter ISO 4217 codes (e.g., USD, EUR, CAD)
+      enum: [USD, CAD, EUR, JPY, SAR]
       x-standard: ISO 4217
       x-standardRef: https://www.iso.org/iso-4217-currency-codes.html
       generate: true
+      sourcePath: /core/puml/commonLib/CurrencyTypeEnum.puml
+      targetPath: /core/json/enums/commonLib/CurrencyTypeEnum
 end note
 
 @enduml

@@ -1,0 +1,125 @@
+' Modelling/PhysicalLocation/PhysicalLocation.puml
+@startuml
+title Physical Location
+
+'Uncomment the statement below to produce diagrams (notes with SCHEMA Hints hidden)
+!define VIEW_MODE
+'!define HIDE_COMMENTS
+
+skinparam classAttributeIconSize 0
+
+' ==================
+' Includes and (related) Dependencies
+
+' CommonLib / shared includes (paths illustrative)
+!include ../../core/puml/commonLib/PhysicalLocationTypes.puml
+!include ../../core/puml/commonLib/CountrySubdivision.puml
+!include ../../core/puml/commonLib/DateRange.puml
+!include ../../core/puml/commonLib/PrioritizedStringValue.puml
+' Segment-local includes
+!include ./AddressVariant.puml
+!include ./PrioritizedAirport.puml
+
+PhysicalLocation --> PhysicalLocationType
+PhysicalLocation --> CountrySubdivision
+PhysicalLocation --> AddressVariant
+PhysicalLocation --> DateRange
+PhysicalLocation --> PrioritizedAirport
+PrioritizedAirport --> IATAAirportCodeEnum
+PhysicalLocation --> PrioritizedStringValue
+
+class PhysicalLocation {
+  +locationType: PhysicalLocationType
+
+  ' Canonical jurisdiction metadata (ISO 3166-1 / -2 / composite)
+  +countrySubdivision: CountrySubdivision
+
+  ' Presentation variants of the address label (domestic vs international; languages)
+  +addressVariant: AddressVariant[*]
+
+  ' Operational / use flags
+  +isPhysical: boolean
+  +isMailable: boolean
+  +isDeliverable: boolean
+  +isDroneAccessible: boolean
+  +isUsableForVerification: boolean
+
+  ' Navigation / geo
+  +navLat: string
+  +navLong: string
+  +altitude: string
+  'format definition for navLat, navLong and altitude strings
+  +latLongAltFormat: string = "ISO 6709"   
+  ' Validity (optional)
+  +validDates: DateRange[*]
+
+  ' Defaults / anchors for travel logistics
+  +defaultAirport: PrioritizedAirport[*]
+  +defaultTrainStation: PrioritizedStringValue[*]
+}
+
+!ifndef HIDE_COMMENTS
+note left of PhysicalLocation
+  PhysicalLocation models canonical location data (place identity and metadata).
+  AddressVariant models context- and language-specific address presentation.
+endnote
+!endif
+
+!ifndef VIEW_MODE
+note right of PhysicalLocation
+SCHEMAHINTS v0.1
+  title: PhysicalLocation
+  additionalProperties: false
+
+  required:[
+    locationType,
+    countrySubdivision
+  ]
+
+  field locationType:
+    $ref: /core/commonLib/PhysicalLocationType
+
+  field countrySubdivision:
+    $ref: /core/commonLib/CountrySubdivision
+
+  field addressVariant:
+    schema:
+      type: array
+      items:
+        $ref: /physicalLocation/AddressVariant
+
+  field isPhysical: boolean
+  field isMailable: boolean
+  field isDeliverable: boolean
+  field isDroneAccessible: boolean
+  field isUsableForVerification: boolean
+
+  field navLat: string
+  field navLong: string
+  field altitude: string
+
+  field latLongAltFormat:
+    type: string
+    default: "ISO 6709"
+
+  field validDates:
+    schema:
+      type: array
+      items:
+        $ref: /core/commonLib/DateRange
+
+  field defaultAirport:
+    schema:
+      type: array
+      items:
+        $ref: /physicalLocation/PrioritizedAirport
+
+  field defaultTrainStation:
+    schema:
+      type: array
+      items:
+        $ref: /core/commonLib/PrioritizedStringValue
+end note
+!endif
+
+@enduml

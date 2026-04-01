@@ -15,5 +15,7 @@
     "sw",
     "sw-KE"
   ],
-  "x-sourcePath": "/core/puml/commonLib/TextEncodingEnum.puml"
+  "x-sourcePath": "/core/puml/commonLib/TextLangLocaleEnum.puml",
+  "pattern": "^[a-zA-Z]{2,3}(-[A-Za-z0-9-]+)?$",
+  "description": "\"IETF BCP47 language tag\""
 }

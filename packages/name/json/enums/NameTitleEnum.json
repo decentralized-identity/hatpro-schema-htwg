@@ -1,0 +1,14 @@
+{
+  "$id": "https://schemas.example.org/hatpro/name/NameTitleEnum.json",
+  "title": "NameTitleEnum",
+  "type": "string",
+  "enum": [
+    "Mr",
+    "Mrs",
+    "Ms",
+    "M",
+    "Dr"
+  ],
+  "x-sourcePath": "/name/puml/NameTitleEnum.puml",
+  "description": "Name titles - currently a single list, future extension - titles by catagory"
+}

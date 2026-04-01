@@ -1,0 +1,27 @@
+@startuml
+' packages/name/puml/NameLayoutScript.puml
+
+class NameLayoutScript {
+  +items: NameLayoutScriptItem[0..*]
+}
+
+!include ./NameLayoutScriptItem.puml
+
+NameLayoutScript "1" -- "0..*" NameLayoutScriptItem : items
+
+!ifndef VIEW_MODE
+note right of NameLayoutScript
+SCHEMAHINTS v0.1
+  title: "NameLayoutScript"
+
+  ' The order of items in the array IS the display order.
+  ' Consumers must process items[0], items[1], ... in sequence.
+
+  field items:
+    schema:
+      type: array
+      items:
+        $ref: /name/NameLayoutScriptItem
+end note
+!endif
+@enduml

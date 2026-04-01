@@ -27,7 +27,9 @@
     "ISO 8859-15 Latin-9; adds Euro sign.",
     "Japanese legacy encoding (CP932 family).",
     "PRC national standard; modern superset covering Unicode.",
-    "Traditional Chinese legacy encoding."
+    "Traditional Chinese legacy encoding.",
+    "sourcePath: /core/puml/commonLib/TextEncodingEnum.puml",
+    "targetPath: /core/json/enums/commonLib/TextEncodingEnum"
   ],
-  "x-sourcePath": "/core/puml/commonLib/TextEncodingEnum.puml"
+  "description": "Encodings accepted on ingest and at presentation edges; internal is always UTF-8."
 }

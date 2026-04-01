@@ -1,0 +1,61 @@
+@startuml
+
+note as DiagramNote #FFFBCC
+This is a first attempt at showing the use of HATPro
+in a Hospitality and Travel leveraging a person AI Agent
+delegated to by the Traveler "booking" cycle 
+end note
+
+
+!theme plain
+skinparam componentStyle rectangle
+
+
+
+actor Traveler
+actor "AI Agent" as Agent
+
+
+rectangle "HATPro Travel Profile" as HATPro {
+[Identity & Contact]
+[Preferences (Food, Accessibility, etc.)]
+[Transport & Lodging Needs]
+[Attractions Interests]
+}
+
+
+rectangle "Ecosystem" {
+rectangle "Aggregators" {
+[Booking.com Connected Trip]
+[Other OTAs]
+[Google Travel]
+}
+rectangle "Suppliers" {
+[Airlines]
+[Hotels]
+[Attractions]
+[Ground Transport]
+}
+}
+
+
+Traveler --> Agent : Delegates control
+Agent --> HATPro : Access structured profile
+
+
+Agent --> [Booking.com Connected Trip] : Query / negotiate offers
+Agent --> [Other OTAs] : Query / compare
+Agent --> [Google Travel] : Query / compare
+Agent --> [Airlines] : Direct query (as needed)
+Agent --> [Hotels] : Direct query (as needed)
+Agent --> [Attractions] : Direct query (as needed)
+Agent --> [Ground Transport] : Direct query (as needed)
+
+
+[Booking.com Connected Trip] --> [Airlines]
+[Booking.com Connected Trip] --> [Hotels]
+[Booking.com Connected Trip] --> [Attractions]
+[Booking.com Connected Trip] --> [Ground Transport]
+
+
+@enduml

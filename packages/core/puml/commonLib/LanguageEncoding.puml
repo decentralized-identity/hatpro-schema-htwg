@@ -1,0 +1,34 @@
+' LanguageEncoding.puml
+@startuml
+skinparam classAttributeIconSize 0
+
+'Uncomment the statement below to produce diagrams (notes with SCHEMA Hints hidden)
+'!define VIEW_MODE   
+
+!include ./TextEncodingEnum.puml
+
+'Relationships
+  LanguageEncoding "1" --> "1" TextEncodingEnum : encoding
+
+class LanguageEncoding {
+  +encoding: TextEncodingEnum
+}
+
+!ifdef VIEW_MODE
+!endif
+
+!ifndef VIEW_MODE
+note right of LanguageEncoding
+SCHEMAHINTS v0.1
+title: LanguageEncoding
+additionalProperties: false
+required:[encoding]
+
+field encoding:
+  type: string
+  enumValuesFrom: /core/commonLib/TextEncodingEnum
+  description: "ISO 15924 (TBD explicit pattern)"
+  default: UTF-8
+end note
+!endif
+@enduml

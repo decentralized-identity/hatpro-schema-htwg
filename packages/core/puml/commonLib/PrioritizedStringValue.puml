@@ -1,0 +1,32 @@
+'PrioritizedStringValue.puml
+@startuml
+skinparam classAttributeIconSize 0
+'!define VIEW_MODE
+
+'Bring in the shared types
+!include ./InternationalString.puml
+
+PrioritizedStringValue --> InternationalString
+
+class PrioritizedStringValue{
+  +priority: integer
+  +stringValue: InternationalString
+}
+
+!ifndef VIEW_MODE
+note right of PrioritizedStringValue
+SCHEMAHINTS v0.1
+title: PrioritizedStringValue
+additionalProperties: false
+required: [priority, stringValue]
+
+field priority: integer
+
+field stringValue:
+  $ref: /core/commonLib/InternationalString
+  ' can be any string  value
+end note
+!endif
+
+@enduml
+

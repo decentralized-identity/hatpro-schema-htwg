@@ -1,0 +1,10 @@
+{
+  "$id": "https://schemas.example.org/hatpro/physicalLocation/SomeEnum.json",
+  "title": "Temp Unit enum codes",
+  "type": "string",
+  "enum": [
+    "DOMESTIC",
+    "INTERNATIONAL"
+  ],
+  "x-sourcePath": "/physicalLocation/puml/SomeEnum.puml"
+}

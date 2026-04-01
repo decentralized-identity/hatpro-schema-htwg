@@ -1,0 +1,27 @@
+{
+  "preferredSpokenLanguages": [
+    {
+      "languageLocale": {
+        "langLocale": "en-US"
+      },
+      "proficiencyLevel": 0,
+      "ranking": 0
+    }
+  ],
+  "preferredWrittenLanguages": [
+    {
+      "languageLocale": {
+        "langLocale": "en-US"
+      },
+      "proficiencyLevel": 0,
+      "ranking": 0
+    }
+  ],
+  "prefDistanceUnit": "",
+  "prefTimeUnit": "",
+  "prefTemperatureUnit": "",
+  "currencyPreferences": {
+    "prefDispCurrency": "",
+    "prefSettlmentCurrency": ""
+  }
+}

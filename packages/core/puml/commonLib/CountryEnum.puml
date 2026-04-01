@@ -1,0 +1,38 @@
+@startuml
+title CountryEnum 
+
+' Dummy Class used in generation of an enum.json file.
+enum CountryEnum {
+  'sample values
+    'US
+    'CA
+    'latn
+}
+
+!ifndef HIDE_COMMENTS
+note bottom of CountryEnum
+      enum: [US, CA]
+      description: ISO 3166-1
+end note
+!endif
+
+!ifndef VIEW_MODE
+note right of CountryEnum
+SCHEMAHINTS
+  field encoding:
+    desc: Valid ISO 3166 codes
+    enumDefine:
+      enumId: /core/commonLib/CountryEnum
+      type: string
+      pattern: ^[A-Z]{2}$
+      description: ISO 3166-1 tag
+      generate: true
+      enum: [US, CA]
+      x-standard: ISO 3166-1
+      x-standardRef: https://en.wikipedia.org/wiki/ISO_3166-1
+      x-standardRef: https://www.iso.org/iso-3166-country-codes.html
+      sourcePath: /core/puml/commonLib/CountryEnum.puml
+      targetPath: /core/json/enums/commonLib/CountryEnum
+end note
+!endif
+@enduml

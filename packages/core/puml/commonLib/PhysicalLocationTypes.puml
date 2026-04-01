@@ -1,0 +1,31 @@
+@startuml
+'title PhysicalLocationType
+
+'Uncomment the statement below to produce diagrams (notes with SCHEMA Hints hidden)
+'!define VIEW_MODE   
+'!define HIDE_COMMENTS
+
+class PhysicalLocationType {
+  'sample values
+   'personal
+   'business
+   'both
+}
+
+!ifndef VIEW_MODE
+note right of PhysicalLocationType
+SCHEMAHINTS
+  title: PhysicalLocationType
+  field encoding:
+    enumDefine:
+      title: Physical Location Type
+      enumId: /core/commonLib/PhysicalLocationType
+      type: string
+      description: location use
+      enum: [personal, business, both]
+      generate: true
+      sourcePath: /core/puml/commonLib/PhysicalLocationType.puml
+      targetPath: /core/json/enums/commonLib/PhysicalLocationType
+end note
+!endif
+@enduml

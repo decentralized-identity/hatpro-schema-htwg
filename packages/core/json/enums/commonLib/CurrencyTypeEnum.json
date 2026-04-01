@@ -1,13 +1,15 @@
 {
   "$id": "https://schemas.example.org/hatpro/core/commonLib/CurrencyTypeEnum.json",
-  "title": "ISO 4217 Currency Codes",
+  "title": "CurrencyTypeEnum",
   "type": "string",
   "enum": [
     "USD",
-    "CDN",
+    "CAD",
     "EUR",
     "JPY",
     "SAR"
   ],
-  "x-sourcePath": "/core/puml/commonLib/CurrencyTypeEnum.puml"
+  "x-sourcePath": "/core/puml/commonLib/CurrencyTypeEnum.puml",
+  "pattern": "^[A-Z]{3}$",
+  "description": "Three-letter ISO 4217 codes (e.g., USD, EUR, CAD)"
 }

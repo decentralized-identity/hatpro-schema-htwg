@@ -1,8 +1,9 @@
 @startuml TravelProfile
+hide notes
 ' TravelProfile.puml
 ' Top-level class that composes a ProfileIdentifier and passive content.
-
 !include ProfileIdentifier.puml
+
 
 skinparam class {
   BackgroundColor White
@@ -79,6 +80,7 @@ package "Traveler Profile (Passive Data Object)" {
 }
 
 TravelProfile *-- ProfileIdentifier : identifier
+TravelProfile "1" -- "1"  ProfileContent
 ProfileContent o-- AttestableItem
 AttestableItem "1" o-- "0..*" EvidenceEnvelope
 EvidenceEnvelope o-- HolderBinding

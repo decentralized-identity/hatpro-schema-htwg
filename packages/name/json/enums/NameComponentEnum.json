@@ -1,0 +1,15 @@
+{
+  "$id": "https://schemas.example.org/hatpro/name/NameComponentEnum.json",
+  "title": "NameComponentEnums",
+  "type": "string",
+  "enum": [
+    "firstGivenName",
+    "secondGivenName",
+    "firstSurname",
+    "secondSurname",
+    "nametitles",
+    "nameSuffixes"
+  ],
+  "x-sourcePath": "/name/puml/NameComponentEnum.puml",
+  "description": "components for building a HATPro Name"
+}

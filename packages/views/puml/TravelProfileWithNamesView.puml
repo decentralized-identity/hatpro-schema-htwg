@@ -1,0 +1,19 @@
+@startuml
+' packages/views/puml/TravelProfileWithNamesView.puml
+
+' Include the underlying model fragments
+!include ../../name/puml/Name.puml
+!include ../../travelProfile/puml/TravelProfile.puml
+
+
+
+' Optionally tweak layout/visuals
+hide empty methods
+hide empty attributes
+
+' You can also highlight the key class:
+' skinparam class {
+'   BackgroundColor<<TravelProfile>> #DDDDFF
+' }
+
+@enduml

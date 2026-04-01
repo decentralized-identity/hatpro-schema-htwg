@@ -1,0 +1,171 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.example.org/hatpro/core/TravelProfile.bundled.schema.json",
+  "title": "TravelProfile",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "intlStringTest": {
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "$id": "https://schemas.example.org/hatpro/core/commonLib/InternationalString.schema.json",
+      "title": "InternationalString",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "value": {
+          "type": "string"
+        },
+        "languageConfiguration": {
+          "$schema": "https://json-schema.org/draft/2020-12/schema",
+          "$id": "https://schemas.example.org/hatpro/core/commonLib/LanguageConfiguration.schema.json",
+          "title": "LanguageConfiguration",
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "langLocale": {
+              "default": "en-US",
+              "type": "string",
+              "x-enumValuesFrom": "/core/json/enums/commonLib/TextLangLocaleEnum.json"
+            },
+            "encoding": {
+              "default": "UTF-8",
+              "type": "string",
+              "x-enumValuesFrom": "/core/json/enums/commonLib/TextEncodingEnum.json"
+            }
+          },
+          "required": [
+            "langLocale",
+            "encoding"
+          ]
+        }
+      },
+      "required": [
+        "value",
+        "langLocale",
+        "encoding"
+      ]
+    },
+    "hatproIdentifier": {
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "$id": "https://schemas.example.org/hatpro/core/commonLib/HATProIdentifier.schema.json",
+      "title": "HATProIdentifier",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "uuid7": {
+          "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-7[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$",
+          "type": "string"
+        },
+        "verifiableIdentifier": {
+          "pattern": "^did:[a-z0-9]+:[A-Za-z0-9.\\-_:]+$",
+          "type": "string"
+        }
+      },
+      "anyOf": [
+        {
+          "required": [
+            "uuid7"
+          ]
+        },
+        {
+          "required": [
+            "verifiableIdentifier"
+          ]
+        }
+      ]
+    },
+    "version": {
+      "default": "0.1.0",
+      "pattern": "^\\d+\\.\\d+\\.\\d+(-[A-Za-z0-9.-]+)?$",
+      "type": "string"
+    },
+    "languageConfig": {
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "$id": "https://schemas.example.org/hatpro/core/commonLib/LanguageConfiguration.schema.json",
+      "title": "LanguageConfiguration",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "langLocale": {
+          "default": "en-US",
+          "type": "string",
+          "x-enumValuesFrom": "/core/json/enums/commonLib/TextLangLocaleEnum.json"
+        },
+        "encoding": {
+          "default": "UTF-8",
+          "type": "string",
+          "x-enumValuesFrom": "/core/json/enums/commonLib/TextEncodingEnum.json"
+        }
+      },
+      "required": [
+        "langLocale",
+        "encoding"
+      ]
+    },
+    "techString": {
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "$id": "https://schemas.example.org/hatpro/core/commonLib/TechString.schema.json",
+      "title": "TechString",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "value": {
+          "type": "string"
+        },
+        "languageConfiguration": {
+          "$schema": "https://json-schema.org/draft/2020-12/schema",
+          "$id": "https://schemas.example.org/hatpro/core/commonLib/LanguageConfiguration_TechString.schema.json",
+          "title": "LanguageConfiguration_TechString",
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "langLocale": {
+              "const": "en-US",
+              "type": "string"
+            },
+            "encoding": {
+              "const": "UTF-8",
+              "type": "string"
+            }
+          },
+          "required": [
+            "langLocale",
+            "encoding"
+          ]
+        }
+      },
+      "required": [
+        "value",
+        "languageConfiguration"
+      ]
+    },
+    "currency": {
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "$id": "https://schemas.example.org/hatpro/core/commonLib/Currency.schema.json",
+      "title": "Currency",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "amount": {
+          "description": "Monetary amount as a string; optional leading '-', exactly 2 decimal digits; no thousands separators; up to 12 digits before the decimal",
+          "default": "$0.00",
+          "pattern": "^-?(?:0|[1-9]\\d{0,11})\\.\\d{2}$",
+          "type": "string"
+        },
+        "currency": {
+          "default": "USD",
+          "type": "string",
+          "x-enumValuesFrom": "/core/json/enums/commonLib/CurrencyTypeEnum.json"
+        }
+      },
+      "required": [
+        "amount",
+        "currency"
+      ]
+    }
+  },
+  "required": [
+    "version",
+    "hatproIdentifier"
+  ]
+}

@@ -1,24 +1,40 @@
 @startuml
-title TextLangLocaleEnum — v1.2 (enumId / targetPath / sourcePath)
+'title TextLangLocaleEnum — v1.2 (enumId / targetPath / sourcePath)
 
-' Dummy Class used in generation of an enum.json file. Class name must end with "_genEnum"
-class TextLangLocale_genEnum {
+' Dummy Class used in generation of an enum.json file.
+enum TextLangLocaleEnum {
+  'sample values
+    'en-US
+    'fr-CA
+    'hi-latn
 }
 
-note right of TextLangLocale_genEnum
+!ifndef HIDE_COMMENTS
+note bottom of TextLangLocaleEnum
+      enum: [en-US, ja, ja-Latn, zh-Hans, zh-Hant, 
+             fr, fr-CA, hi, hi-Latn, sw, sw-KE]
+      description: "IETF BCP47 language tag"      
+end note
+!endif
+
+!ifndef VIEW_MODE
+note right of TextLangLocaleEnum
 SCHEMAHINTS
-  title: TextEncoding_genEnum
+  title: TextLangLocaleEnum
   field encoding:
     desc: Valid IETF BCP-47 language/locale values
     enumDefine:
-      enumId: /core/commonLib/TextLangLocaleEnum
-      targetPath: /core/json/enums/commonLib/TextLangLocaleEnum
-      sourcePath: /core/puml/commonLib/TextEncodingEnum.puml
       title: TextLangLocaleEnum
+      enumId: /core/commonLib/TextLangLocaleEnum
       type: string
-      description: TBC
+      pattern: ^[a-zA-Z]{2,3}(-[A-Za-z0-9-]+)?$
+      description: "IETF BCP47 language tag"      
       generate: true
       enum: [en-US, "ja", "ja-Latn", "zh-Hans", "zh-Hant", "fr", "fr-CA", "hi", "hi-Latn", "sw", "sw-KE"]
+      x-standard: IETF BCP 47
+      x-standardRef: https://en.wikipedia.org/wiki/IETF_language_tag
+      sourcePath: /core/puml/commonLib/TextLangLocaleEnum.puml
+      targetPath: /core/json/enums/commonLib/TextLangLocaleEnum
 end note
-
+!endif
 @enduml

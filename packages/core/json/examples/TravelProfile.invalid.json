@@ -1,0 +1,29 @@
+{
+  "intlStringTest": {
+    "value": "",
+    "languageConfiguration": {
+      "langLocale": "en-US",
+      "encoding": "UTF-8"
+    }
+  },
+  "hatproIdentifier": {
+    "uuid7": "notauuidv7",
+    "verifiableIdentifier": "notadid"
+  },
+  "version": "0.1.0",
+  "languageConfig": {
+    "langLocale": "en-US",
+    "encoding": "UTF-8"
+  },
+  "techString": {
+    "value": "Valid TechString",
+    "languageConfiguration": {
+      "langLocale": "en-US",
+      "encoding": "UTF-8"
+    }
+  },
+  "currency": {
+    "amount": "$234.00",
+    "currency": "CAN"
+  }
+}
