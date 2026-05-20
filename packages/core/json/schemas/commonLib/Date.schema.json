@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.example.org/hatpro/core/commonLib/Date.schema.json",
+  "title": "Date",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "date": {
+      "default": "2030-01-01",
+      "pattern": "^\\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12]\\d|3[01])$",
+      "type": "string"
+    }
+  },
+  "required": [
+    "date"
+  ]
+}

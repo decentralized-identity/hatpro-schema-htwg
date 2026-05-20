@@ -1,0 +1,27 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.example.org/hatpro/core/commonLib/CountrySubdivision.schema.json",
+  "title": "CountrySubdivision",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "country": {
+      "default": "us",
+      "type": "string",
+      "x-enumValuesFrom": "/core/json/enums/commonLib/CountryEnum.json"
+    },
+    "stateProv": {
+      "default": "CA",
+      "type": "string",
+      "x-enumValuesFrom": "/core/json/enums/commonLib/SubDivisionEnum.json"
+    },
+    "countryStateProv": {
+      "default": "us-CA",
+      "type": "string",
+      "x-enumValuesFrom": "/core/json/enums/commonLib/CountryState.json"
+    }
+  },
+  "required": [
+    "country"
+  ]
+}

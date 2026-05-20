@@ -4,62 +4,46 @@
     "build": "npm run lint:hints && npm run gen:enums && npm run gen:schemas && npm run validate:enums && npm run validate:schemas",
     "build:ci": "npm run lint:hints:strict && npm run gen:enums && npm run gen:schemas && npm run validate:enums && npm run validate:schemas",
     "build:fast": "npm run lint:hints && npm run gen:enums && npm run gen:schemas",
-
     "bundle:travelprofile": "node tools/bundle-travelprofile.mjs --entry packages/core/json/schemas/TravelProfile.schema.json --out deliverables/TravelProfile.bundle.schema.json --mode bundle",
     "bundle:travelprofile:deref": "node tools/bundle-travelprofile.mjs --entry packages/core/json/schemas/TravelProfile.schema.json --out deliverables/TravelProfile.deref.schema.json --mode deref",
-
     "clean": "rimraf --glob \"packages/**/json/schemas\" \"packages/**/json/samples\"",
-
     "compile:schemas": "node tools/compile-schemas.mjs",
-
     "gen:enums": "node tools/generate_json-enums-from-puml.mjs --baseId https://schemas.example.org/hatpro/ --packagesDir ./packages",
     "gen:enums:file": "node tools/generate_json-enums-from-puml.mjs --baseId https://schemas.example.org/hatpro/ --packagesDir ./packages --file",
-
     "gen:samples": "node tools/generate-samples.mjs --root packages",
     "gen:samples:auto": "node tools/gen-auto-samples.mjs --validate",
     "gen:samples:auto:strict": "node tools/gen-auto-samples.mjs --validate --strict",
-
     "gen:schemas": "node tools/generate-json-schema-from-puml.mjs --baseId https://schemas.example.org/hatpro/ --packagesDir ./packages",
     "gen:schemas:file": "node tools/generate-json-schema-from-puml.mjs --baseId https://schemas.example.org/hatpro/ --packagesDir ./packages --file",
     "gen:templates": "node tools/generate-templates-from-schemas.mjs --packagesDir ./packages",
-
     "gen:test-samples": "node tools/generate-test-samples-from-schemas.mjs",
     "gen:travelprofile-sample": "node tools/generate-travelprofile-sample.mjs",
-
     "lint": "node tools/lint-schemahints.mjs ./packages --checkTargets --strict --forbidEnumFrom",
     "lint:hints": "node tools/lint-schemahints.mjs ./packages --checkTargets",
     "lint:hints:json": "node tools/lint-schemahints.mjs ./packages --checkTargets --format=json --out=lint-report.json --forbidEnumFrom",
     "lint:hints:strict": "node tools/lint-schemahints.mjs ./packages --checkTargets --strict --forbidEnumFrom",
     "lint:schemahints": "node tools/lint-schemahints.mjs --packagesDir packages --strict",
-
     "run:tests": "node tools/run-tests.mjs",
     "test": "npm run validate:enums && npm run validate:schemas && npm run validate:examples",
     "test:templates": "node tools/test-templates.mjs --packagesDir ./packages",
-
     "validate:enums": "ajv compile -s \"packages/**/json/enums/**/*.json\" --spec=draft2020",
     "validate:enums:all": "npm run validate:enums && npm run validate:enums:values",
     "validate:enums:values": "node tools/validate-enums-patterns.mjs --baseDir . --packagesDir packages",
-
     "validate:examples": "node tools/validate-examples.mjs",
     "validate:examples:core": "node tools/validate-examples.mjs --segment core",
     "validate:examples:v1": "node tools/validate-examples.mjs --version v1",
-
     "validate:samples": "node tools/validate-samples.mjs",
     "validate:samples:auto:v2": "node tools/validate-samples.mjs --root packages --glob 'packages/**/json/samples/auto/**/*.json' --expect auto",
     "validate:samples:manual:v2": "node tools/validate-samples.mjs --root packages --glob 'packages/**/json/samples/manual/**/*.json' --expect auto",
-
     "validate:schemas": "ajv compile -s \"packages/**/json/schemas/**/*.schema.json\" --spec=draft2020",
     "validate:tests:manual": "node tools/validate-samples.mjs --root packages --glob 'packages/**/json/tests/manual/**/*.json' --expect auto",
-
     "validate:test-samples": "node tools/validate-with-ajv.mjs --packagesDir ./packages --samplesDir json/samples",
-
     "verify": "npm run lint:hints:strict && npm run gen:enums && npm run gen:schemas && npm run validate:enums && npm run validate:schemas",
     "verify:all": "npm run verify:schema-stack && npm run gen:templates && npm run gen:samples && npm run validate:samples",
     "verify:auto": "npm run compile:schemas && npm run gen:samples:auto && npm run validate:samples",
     "verify:auto:strict": "npm run compile:schemas && npm run gen:samples:auto:strict && npm run validate:samples",
     "verify:samples": "npm run gen:samples && npm run validate:samples",
     "verify:schema-stack": "npm run gen:enums && npm run gen:schemas && npm run compile:schemas",
-
     "watch": "chokidar \"packages/**/puml/**/*.puml\" -c \"npm run gen:enums && npm run gen:schemas\"",
     "watch:enums": "chokidar \"packages/**/puml/**/*.puml\" -c \"npm run gen:enums\"",
     "watch:schemas": "chokidar \"packages/**/puml/**/*.puml\" -c \"npm run gen:schemas\""
@@ -75,6 +59,7 @@
     "ajv-formats": "^3.0.1",
     "chokidar-cli": "^3.0.0",
     "globby": "^14.1.0",
+    "markdown-toc": "^1.2.0",
     "rimraf": "^6.0.1",
     "sort-package-json": "^3.5.0"
   }

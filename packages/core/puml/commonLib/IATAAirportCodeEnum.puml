@@ -2,15 +2,15 @@
 'title IATAAirportCodeEnum
 
 'Uncomment the statement below to produce diagrams (notes with SCHEMA Hints hidden)
-'!define VIEW_MODE   
+'!define VIEW_MODE
 '!define HIDE_COMMENTS
 
 enum IATAAirportCodeEnum {
   'sample values
-   'YUL, Montreal
-   'BOS, Boston
-   'SIN, Singapore
-   'AMS, Amsterdam
+   YUL, 'Montreal
+   BOS, 'Boston
+   SIN, 'Singapore
+   AMS, 'Amsterdam
 }
 
 !ifndef VIEW_MODE

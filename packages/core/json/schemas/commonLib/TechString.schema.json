@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.example.org/hatpro/core/commonLib/TechString.schema.json",
+  "title": "TechString",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "value": {
+      "type": "string"
+    },
+    "languageConfiguration": {
+      "$ref": "https://schemas.example.org/hatpro/core/commonLib/LanguageConfiguration_TechString.schema.json"
+    }
+  },
+  "required": [
+    "value",
+    "languageConfiguration"
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.example.org/hatpro/core/commonLib/LanguageConfiguration.schema.json",
+  "title": "LanguageConfiguration",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "langLocale": {
+      "$ref": "https://schemas.example.org/hatpro/core/commonLib/LanguageLocale.schema.json"
+    },
+    "encoding": {
+      "$ref": "https://schemas.example.org/hatpro/core/commonLib/LanguageEncoding.schema.json"
+    }
+  },
+  "required": [
+    "langLocale",
+    "encoding"
+  ]
+}

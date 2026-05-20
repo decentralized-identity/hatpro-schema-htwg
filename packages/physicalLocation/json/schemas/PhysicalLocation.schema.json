@@ -1,0 +1,43 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.example.org/hatpro/physicalLocation/PhysicalLocation.schema.json",
+  "title": "PhysicalLocation",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "locationType": {
+      "$ref": "https://schemas.example.org/hatpro/core/commonLib/PhysicalLocationType.schema.json"
+    },
+    "countrySubdivision": {
+      "$ref": "https://schemas.example.org/hatpro/core/commonLib/CountrySubdivision.schema.json"
+    },
+    "addressVariant": {
+      "type": "array",
+      "items": {
+        "$ref": "https://schemas.example.org/hatpro/physicalLocation/AddressVariant.schema.json"
+      }
+    },
+    "latLongAltFormat": {
+      "default": "\"ISO 6709\"",
+      "type": "string"
+    },
+    "validDates": {
+      "type": "array",
+      "items": {
+        "$ref": "https://schemas.example.org/hatpro/core/commonLib/DateRange.schema.json"
+      }
+    },
+    "defaultAirport": {
+      "type": "array",
+      "items": {
+        "$ref": "https://schemas.example.org/hatpro/physicalLocation/PrioritizedAirport.schema.json"
+      }
+    },
+    "defaultTrainStation": {
+      "type": "array",
+      "items": {
+        "$ref": "https://schemas.example.org/hatpro/core/commonLib/PrioritizedStringValue.schema.json"
+      }
+    }
+  }
+}

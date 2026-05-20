@@ -1,41 +1,39 @@
+# ============================================================
+# HATPro repo ignore rules
+#
+# Principle:
+# - Track source models, published JSON schemas, examples,
+#   templates, components, docs, scripts, tools, and diagrams
+# - Ignore only local tooling artifacts, logs, caches,
+#   scratch work, and temporary files
+#
+# Scratch work should be placed in /working/ folders anywhere
+# in the repository tree.
+# ============================================================
+
 # Node / tooling
 node_modules/
-dist/
+.npm/
+.cache/
+
+# ignore working directories under each of the top folders
+**/working/
+
+#File types to ignore
+
+# Logs / temp / backup files
 *.log
 *.tmp
 *.bak
+*.old
+*.orig
+*.zip
 
-# Generated JSON Schemas (both current and future layouts)
-packages/**/json/schemas/
-packages/**/content/json/schemas/
-packages/**/json/samples/
-!packages/**/json/examples/
-# monolith JSON Schema
-packages/core/json/TravelProfile.schema.json
-
-# Enums are deliverables → track them
-!packages/**/json/enums/
-!packages/**/content/json/enums/
-
-# allow deliverables (review artifacts)
-!deliverables/
-
-# PlantUML renders
-*.png
-*.svg
-*.txt
-docs/diagrams/
-plantuml-out/
-
-# Stray copies you mentioned
-tools/* - Copy*.mjs
-
-# OS cruft
+# OS / editor cruft
 .DS_Store
 Thumbs.db
+desktop.ini
+.vscode/.history/
 
-# local snapshots / WIP artifacts
-WIP_tools/scripts/REPO
-scripts/*.zip
-tools/*.zip
-
+# Tool-specific generated files
+ajv.log

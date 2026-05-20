@@ -1,4 +1,14 @@
 # Segment-local scripts
 
-Optional POSIX shell scripts for validation or generation.
-Prefer `.sh`; avoid PowerShell.
+The requirement that core scripts must be portable across Mac, Linux and Windows
+
+**Primary:**
+
+- npm + Node.js + .mjs
+
+Allowed but **Secondary**:
+
+- pwsh for Windows-friendly helper scripts
+- Bash for GitHub Actions glue only 
+  - Windows Git Bash installed for Win 11
+- Python only by exception

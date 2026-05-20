@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.example.org/hatpro/core/commonLib/LanguageConfiguration_TechString.schema.json",
+  "title": "LanguageConfiguration_TechString",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "langLocale": {
+      "default": "en-US",
+      "const": "en-US",
+      "type": "string"
+    },
+    "encoding": {
+      "default": "UTF-8",
+      "const": "UTF-8",
+      "type": "string"
+    }
+  },
+  "required": [
+    "langLocale",
+    "encoding"
+  ]
+}

@@ -1,0 +1,39 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.example.org/hatpro/name/Name.schema.json",
+  "title": "\"Name\"",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "namePurpose": {
+      "$ref": "https://schemas.example.org/hatpro/core/commonLib/InternationalString.schema.json"
+    },
+    "languageConfig": {
+      "$ref": "https://schemas.example.org/hatpro/core/commonLib/LanguageConfiguration.schema.json"
+    },
+    "firstGivenName": {
+      "$ref": "https://schemas.example.org/hatpro/core/commonLib/InternationalString.schema.json"
+    },
+    "secondGivenName": {
+      "$ref": "https://schemas.example.org/hatpro/core/commonLib/InternationalString.schema.json"
+    },
+    "firstSurname": {
+      "$ref": "https://schemas.example.org/hatpro/core/commonLib/InternationalString.schema.json"
+    },
+    "secondSurname": {
+      "$ref": "https://schemas.example.org/hatpro/core/commonLib/InternationalString.schema.json"
+    },
+    "sortName": {
+      "$ref": "https://schemas.example.org/hatpro/core/commonLib/InternationalString.schema.json"
+    },
+    "nameTitles": {
+      "$ref": "https://schemas.example.org/hatpro/name/NameTitles.schema.json"
+    },
+    "nameSuffixes": {
+      "$ref": "https://schemas.example.org/hatpro/name/NameSuffixes.schema.json"
+    },
+    "nameDisplays": {
+      "$ref": "https://schemas.example.org/hatpro/name/NameDisplayLayouts.schema.json"
+    }
+  }
+}

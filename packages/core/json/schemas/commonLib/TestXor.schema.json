@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.example.org/hatpro/core/commonLib/TestXor.schema.json",
+  "title": "TestXor",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "email": {
+      "description": "\"Email contact; used when present\"",
+      "format": "email",
+      "type": "string"
+    },
+    "phone": {
+      "description": "\"Phone contact; used when present\"",
+      "type": "string"
+    }
+  },
+  "oneOf": [
+    {
+      "required": [
+        "email"
+      ]
+    },
+    {
+      "required": [
+        "phone"
+      ]
+    }
+  ]
+}

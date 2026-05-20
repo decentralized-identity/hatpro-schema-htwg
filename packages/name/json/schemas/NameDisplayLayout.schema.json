@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.example.org/hatpro/name/NameDisplayLayout.schema.json",
+  "title": "\"NameDisplayLayout\"",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "formatName": {
+      "description": "\"Human-readable name for this layout (e.g., 'Western full name').\"",
+      "$ref": "https://schemas.example.org/hatpro/core/commonLib/InternationalString.schema.json"
+    },
+    "formatDescription": {
+      "description": "\"Description of when/where this layout is used.\"",
+      "$ref": "https://schemas.example.org/hatpro/core/commonLib/InternationalString.schema.json"
+    },
+    "nameFormatScript": {
+      "$ref": "https://schemas.example.org/hatpro/name/NameLayoutScript.schema.json"
+    }
+  },
+  "required": [
+    "formatName",
+    "nameFormatScript"
+  ]
+}

@@ -1,0 +1,39 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.example.org/hatpro/physicalLocation/AddressVariant.schema.json",
+  "title": "AddressVariant",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "deliveryContext": {
+      "$ref": "https://schemas.example.org/hatpro/physicalLocation/AddressContextEnum.schema.json"
+    },
+    "language": {
+      "$ref": "https://schemas.example.org/hatpro/core/commonLib/LanguageConfiguration.schema.json"
+    },
+    "addressLine1": {
+      "$ref": "https://schemas.example.org/hatpro/core/commonLib/InternationalString.schema.json"
+    },
+    "addressLine2": {
+      "$ref": "https://schemas.example.org/hatpro/core/commonLib/InternationalString.schema.json"
+    },
+    "addressLine3": {
+      "$ref": "https://schemas.example.org/hatpro/core/commonLib/InternationalString.schema.json"
+    },
+    "cityText": {
+      "$ref": "https://schemas.example.org/hatpro/core/commonLib/InternationalString.schema.json"
+    },
+    "subdivisionText": {
+      "$ref": "https://schemas.example.org/hatpro/core/commonLib/InternationalString.schema.json"
+    },
+    "subdivisionAbbreviation": {
+      "$ref": "https://schemas.example.org/hatpro/core/commonLib/InternationalString.schema.json"
+    },
+    "postalCodeText": {
+      "$ref": "https://schemas.example.org/hatpro/core/commonLib/InternationalString.schema.json"
+    },
+    "countryText": {
+      "$ref": "https://schemas.example.org/hatpro/core/commonLib/InternationalString.schema.json"
+    }
+  }
+}

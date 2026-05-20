@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.example.org/hatpro/core/commonLib/DateRange.schema.json",
+  "title": "Date",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "start": {
+      "$ref": "https://schemas.example.org/hatpro/core/commonLib/Date.schema.json"
+    },
+    "end": {
+      "$ref": "https://schemas.example.org/hatpro/core/commonLib/Date.schema.json"
+    }
+  },
+  "required": [
+    "start",
+    "end"
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.example.org/hatpro/name/NameLayoutScriptItem.schema.json",
+  "title": "\"NameLayoutScriptItem\"",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "component": {
+      "description": "\"Which Name component to insert at this step.\"",
+      "$ref": "https://schemas.example.org/hatpro/name/NameComponentEnum.schema.json"
+    },
+    "separator": {
+      "description": "\"Optional separator appended after this component.\"",
+      "$ref": "https://schemas.example.org/hatpro/name/NameSeparatorEnum.schema.json"
+    },
+    "sequenceNumber": {
+      "description": "\"Optional explicit ordinal; if present, lower numbers are rendered first. Array order remains authoritative.\"",
+      "type": "integer"
+    }
+  },
+  "required": [
+    "component"
+  ]
+}

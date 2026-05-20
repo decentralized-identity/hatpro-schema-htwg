@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.example.org/hatpro/core/commonLib/LanguageLocale.schema.json",
+  "title": "LanguageLocale",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "langLocale": {
+      "default": "en-US",
+      "type": "string",
+      "x-enumValuesFrom": "/core/json/enums/commonLib/TextLangLocaleEnum.json"
+    }
+  },
+  "required": [
+    "langLocale"
+  ]
+}

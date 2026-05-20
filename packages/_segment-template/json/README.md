@@ -2,8 +2,9 @@
 
 Generated artifacts for this segment.
 
-If `puml/commonLib/` is used, generated outputs must mirror it under:
+If `puml/commonLib/` is used, generated outputs must mirror it under each of the following json directories (enums, schemas, templates, examples, tests:
 - enums/commonLib
+- examples/commonLib
 - schemas/commonLib
 - templates/commonLib
-- examples/commonLib
+- tests/commonLib
