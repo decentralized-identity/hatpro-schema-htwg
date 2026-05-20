@@ -1,4 +1,4 @@
-# HATPRO Schema & Repo Conventions
+# HATPRO Schema & Repository Conventions
 
 _Last updated: 2025-10-14_
 
@@ -239,7 +239,7 @@ node tools/generate-json-from-puml.mjs --baseId https://example.org/hatpro/schem
 
 ### 7.2 Validation
 ```
-node tools/validate-with-ajc.mjs
+node tools/validate-with-ajv.mjs
 ```
 - Validates that `*.valid.json` pass and `*.invalid.json` fail.
 - Preloads schemas from `packages/**/content/json/schemas` and enums from `packages/**/content/json/enums`.

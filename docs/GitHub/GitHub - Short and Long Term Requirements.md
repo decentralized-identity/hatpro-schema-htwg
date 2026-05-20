@@ -1,4 +1,4 @@
-# HATPro GitHub/Version Control Requirements
+# HATPro GitHub - Short and Long Term Requirements
 
 ## Segment or Sub-Segment - Independent Versioning
 
