@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.example.org/hatpro/core/commonLib/InternationalString.schema.json",
+  "title": "InternationalString",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "value": {
+      "type": "string"
+    },
+    "languageConfiguration": {
+      "$ref": "https://schemas.example.org/hatpro/core/commonLib/LanguageConfiguration.schema.json"
+    }
+  },
+  "required": [
+    "value",
+    "langLocale",
+    "encoding"
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.example.org/hatpro/core/commonLib/PrioritizedStringValue.schema.json",
+  "title": "PrioritizedStringValue",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "stringValue": {
+      "$ref": "https://schemas.example.org/hatpro/core/commonLib/InternationalString.schema.json"
+    }
+  },
+  "required": [
+    "priority",
+    "stringValue"
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.example.org/hatpro/physicalLocation/PrioritizedAirport.schema.json",
+  "title": "PrioritizedAirport",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "airport": {
+      "$ref": "https://schemas.example.org/hatpro/core/commonLib/IATAAirportCodeEnum.schema.json"
+    }
+  },
+  "required": [
+    "priority",
+    "airport"
+  ]
+}

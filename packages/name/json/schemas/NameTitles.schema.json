@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.example.org/hatpro/name/NameTitles.schema.json",
+  "title": "\"NameTitles\"",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "items": {
+      "type": "array",
+      "items": {
+        "$ref": "https://schemas.example.org/hatpro/name/NameTitleEnum.schema.json"
+      }
+    }
+  }
+}

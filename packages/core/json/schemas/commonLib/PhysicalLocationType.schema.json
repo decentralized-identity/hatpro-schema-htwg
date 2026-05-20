@@ -1,0 +1,12 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.example.org/hatpro/core/commonLib/PhysicalLocationType.schema.json",
+  "title": "PhysicalLocationType",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "encoding": {
+      "$ref": "https://schemas.example.org/hatpro/core/commonLib/PhysicalLocationType.json"
+    }
+  }
+}

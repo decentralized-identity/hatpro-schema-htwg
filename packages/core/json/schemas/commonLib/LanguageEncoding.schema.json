@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.example.org/hatpro/core/commonLib/LanguageEncoding.schema.json",
+  "title": "LanguageEncoding",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "encoding": {
+      "default": "UTF-8",
+      "type": "string",
+      "x-enumValuesFrom": "/core/json/enums/commonLib/TextEncodingEnum.json"
+    }
+  },
+  "required": [
+    "encoding"
+  ]
+}

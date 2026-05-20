@@ -2,7 +2,7 @@
 skinparam classAttributeIconSize 0
 
 'Uncomment the statement below to produce diagrams (notes with SCHEMA Hints hidden)
-'!define VIEW_MODE   
+'!define VIEW_MODE
 '!define HIDE_COMMENTS
 
 

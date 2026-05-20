@@ -1,0 +1,12 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.example.org/hatpro/core/commonLib/CurrencyType_genEnum.schema.json",
+  "title": "CurrencyTypeEnum",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "encoding": {
+      "$ref": "https://schemas.example.org/hatpro/core/commonLib/CurrencyTypeEnum.json"
+    }
+  }
+}

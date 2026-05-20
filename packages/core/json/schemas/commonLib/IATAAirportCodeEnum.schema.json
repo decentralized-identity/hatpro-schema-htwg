@@ -1,0 +1,9 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.example.org/hatpro/core/commonLib/IATAAirportCodeEnum.schema.json",
+  "allOf": [
+    {
+      "$ref": "https://schemas.example.org/hatpro/core/commonLib/IATAAirportCodeEnum.json"
+    }
+  ]
+}

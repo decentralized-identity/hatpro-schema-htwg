@@ -30,7 +30,7 @@ SCHEMAHINTS v0.1
 
   field sequenceNumber:
     type: integer
-    desc: "Optional explicit ordinal; if present, lower numbers are rendered first. Array order remains authoritative."
+    desc: "Optional explicit ordinal; if present, lower numbers are rendered first. Otherwise array order remains authoritative."
 end note
 !endif
 @enduml

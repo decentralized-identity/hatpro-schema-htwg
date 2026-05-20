@@ -1,0 +1,32 @@
+{
+  "bundleId": "https://schemas.example.org/hatpro/core/TravelProfile.bundle.json",
+  "schemaId": "https://schemas.example.org/hatpro/core/TravelProfile.schema.json",
+  "baseId": "https://schemas.example.org/hatpro/",
+  "properties": [
+    {
+      "jsonPath": "name",
+      "schemaId": "https://schemas.example.org/hatpro/name/Name.schema.json",
+      "include": true
+    },
+    {
+      "jsonPath": "identity",
+      "schemaId": "https://schemas.example.org/hatpro/identity/IdentityInfo.schema.json",
+      "include": true
+    },
+    {
+      "jsonPath": "contact",
+      "schemaId": "https://schemas.example.org/hatpro/contact/ContactInfo.schema.json",
+      "include": true
+    },
+    {
+      "jsonPath": "preferences",
+      "schemaId": "https://schemas.example.org/hatpro/preferences/Preferences.schema.json",
+      "include": false
+    },
+    {
+      "jsonPath": "support",
+      "schemaId": "https://schemas.example.org/hatpro/support/SupportInfo.schema.json",
+      "include": false
+    }
+  ]
+}
