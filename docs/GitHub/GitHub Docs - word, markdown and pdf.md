@@ -10,22 +10,6 @@ PDFs can be opened and Word docs can be downloaded for viewing
 
 A more sophisticated approach to editing Word documents is to open them online 
 
-
-
-
-
-[ChatGPT](https://chatgpt.com/)
-
-
-
-
-
-- 
-- 
-- 
-
-
-
 I’ll verify the current GitHub behavior rather than rely on memory, because GitHub’s web editing/viewing integrations have changed over time.
 
 Thought for 5s

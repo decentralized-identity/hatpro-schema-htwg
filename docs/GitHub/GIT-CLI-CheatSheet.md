@@ -25,9 +25,9 @@ Title: git CheatSheet
 
 ## Detailed History of Changes
 
-| Ver. | Date      | Who | Detailed description of Changes |
-|------|-----------|-----|---------------------------------|
-| 1.0  | 08Dec2004 | NJT | Created                         |
+| Ver. | Date       | Who  | Detailed description of Changes |
+| ---- | ---------- | ---- | ------------------------------- |
+| 1.0  | 2026-04-15 | NJT  | Created                         |
 
 ## Table of Contents
 
@@ -268,8 +268,8 @@ Best practice: prefer commits over stash for real work.
 
 ## A. “I am confused. Show me where I am.”
 
-**git status  
-git branch --show-current  
+**git status
+git branch --show-current
 git log --oneline --graph --decorate -10**
 
 Use this first whenever lost.
@@ -278,8 +278,8 @@ Use this first whenever lost.
 
 ## B. “I changed files and want a safe local checkpoint.”
 
-**git status  
-git add -A  
+**git status
+git add -A
 git commit -m "WIP: brief description"**
 
 This saves your work locally. No GitHub involved yet.
@@ -288,7 +288,7 @@ This saves your work locally. No GitHub involved yet.
 
 ## C. “I want to back up my branch to GitHub.”
 
-**git status  
+**git status
 git push**
 
 If first push of that branch:
@@ -299,7 +299,7 @@ If first push of that branch:
 
 ## D. “I want the latest GitHub information, but I do not want my files changed.”
 
-**git fetch origin  
+**git fetch origin
 git log --oneline --decorate origin/main -5**
 
 Safe. No working-file changes.
@@ -308,7 +308,7 @@ Safe. No working-file changes.
 
 ## E. “I want to compare my current branch to GitHub main.”
 
-**git fetch origin  
+**git fetch origin
 git diff --name-status origin/main..HEAD**
 
 For only .mjs files:
@@ -321,33 +321,33 @@ For only .mjs files:
 
 Preferred approach:
 
-**git status  
-git add -A  
-git commit -m "WIP: checkpoint before switching"  
+**git status
+git add -A
+git commit -m "WIP: checkpoint before switching"
 git switch main**
 
 If you truly do not want a commit:
 
-**git stash push -m "mid-edit checkpoint"  
+**git stash push -m "mid-edit checkpoint"
 git switch main**
 
 ## G. “I want to update local main from GitHub.”
 
-**git switch main  
+**git switch main
 git pull**
 
 This changes your local main files to include remote updates.
 
 Safer/more explicit version:
 
-**git switch main  
-git fetch origin  
+**git switch main
+git fetch origin
 git merge origin/main**
 
 ## H. “I want to bring the latest main into my working branch.”
 
-**git switch my-branch  
-git fetch origin  
+**git switch my-branch
+git fetch origin
 git merge origin/main**
 
 That merges current GitHub main into your current branch.
@@ -418,27 +418,27 @@ For daily work, this is enough:
 
 ### Start of session
 
-**git status  
-git branch --show-current  
+**git status
+git branch --show-current
 git log --oneline --graph --decorate -5**
 
 ### Before switching branches
 
-**git status  
-git add -A  
-git commit -m "WIP: checkpoint"  
+**git status
+git add -A
+git commit -m "WIP: checkpoint"
 git switch other-branch**
 
 ### Before comparing to GitHub main
 
-**git fetch origin  
+**git fetch origin
 git diff --name-status origin/main..HEAD**
 
 ### End of session
 
-**git status  
-git add -A  
-git commit -m "WIP: end-of-day checkpoint"  
+**git status
+git add -A
+git commit -m "WIP: end-of-day checkpoint"
 git push**
 
 ### Clean up local folder to match Origin
@@ -447,25 +447,25 @@ git push**
 
 # Fast “what happens where” summary
 
-**git fetch origin : GitHub -\> local repo (.git)  
-git add : local disk -\> local repo staging  
-git commit : staging -\> local repo history  
-git push : local repo -\> GitHub  
-git switch branch : local repo -\> local disk  
-git pull : GitHub -\> local repo -\> local disk  
+**git fetch origin : GitHub -\> local repo (.git)
+git add : local disk -\> local repo staging
+git commit : staging -\> local repo history
+git push : local repo -\> GitHub
+git switch branch : local repo -\> local disk
+git pull : GitHub -\> local repo -\> local disk
 git stash : local disk -\> local repo stash**
 
 # The single most important distinction
 
 There are only three questions:
 
-1.  **Am I just inspecting?**  
+1.  **Am I just inspecting?**
     Use **status, log, diff, branch**.
 
-2.  **Am I saving locally?**  
+2.  **Am I saving locally?**
     Use **add, commit.**
 
-3.  **Am I syncing with GitHub?**  
+3.  **Am I syncing with GitHub?**
     Use **fetch, pull, push.**
 
 If you identify which of those three you mean, the right command becomes
@@ -490,7 +490,7 @@ When we say:
 
 we mean:
 
-C:\Users\nthomson\Projects\hatpro-schema-temp_RECONCILE\\git\\
+C:\Users\nthomson\Projects\hatpro-schema-htwg
 
 That folder contains:
 
@@ -510,9 +510,9 @@ That folder contains:
 
 ## Local disk (working folder)
 
-hatpro-schema-temp_RECONCILE\\  
-├── packages\\  
-├── tools\\  
+hatpro-schema-htwg\\
+├── packages\\
+├── tools\\
 ├── package.json
 
 👉 What you edit
@@ -521,7 +521,7 @@ hatpro-schema-temp_RECONCILE\\
 
 ## Local repo (.git)
 
-hatpro-schema-temp_RECONCILE\\git\\
+hatpro-schema-htwg\\
 
 👉 What Git manages internally
 
@@ -529,7 +529,7 @@ hatpro-schema-temp_RECONCILE\\git\\
 
 ## Remote repo (GitHub)
 
-https://github.com/decentralized-identity/hatpro-schema-temp
+https://github.com/decentralized-identity/hatpro-schema-htwg
 
 👉 Shared version
 
@@ -627,8 +627,8 @@ Your working folder is:
 
 # Bottom line
 
-✔ Yes — “local repo” = .git  
-✔ .git is the real source of truth locally  
+✔ Yes — “local repo” = .git
+✔ .git is the real source of truth locally
 ✔ your working files are just a view of it
 
 # ICQ’s
@@ -652,14 +652,14 @@ You have changes in your files.
 
 The flow
 
-Your edits (disk)  
-↓  
-git add  
-↓  
-Staging area (in .git)  
-↓  
-git commit  
-↓  
+Your edits (disk)
+↓
+git add
+↓
+Staging area (in .git)
+↓
+git commit
+↓
 Saved checkpoint (in .git history)
 
 ------------------------------------------------------------------------
@@ -702,7 +702,7 @@ But for your work right now:
 
 For your workflow:
 
-git add -A  
+git add -A
 git commit -m "WIP: \<what you just did\>"
 
 👉 That creates a **checkpoint of your current state**
@@ -731,7 +731,7 @@ With committing:
 
 ## Branch switching — where this matters
 
-### Situation: you are working on RECONCILE
+### Situation: you are working on Branch: X
 
 You’ve:
 
@@ -763,7 +763,7 @@ Git may:
 
 #### Step 1 — checkpoint
 
-git add -A  
+git add -A
 git commit -m "WIP: reconcile progress"
 
 #### Step 2 — switch
@@ -778,8 +778,8 @@ git switch main
 
 Because:
 
-👉 commits live in .git  
-👉 switching branches rewrites your working folder  
+👉 commits live in .git
+👉 switching branches rewrites your working folder
 👉 but your commits stay safe
 
 ------------------------------------------------------------------------
@@ -833,24 +833,24 @@ git add -A
 
 Repeat this often:
 
-git status  
-git add -A  
+git status
+git add -A
 git commit -m "WIP: \<what changed\>"
 
 ------------------------------------------------------------------------
 
 ### When switching branches
 
-git status  
-git add -A  
-git commit -m "WIP: checkpoint before switching"  
+git status
+git add -A
+git commit -m "WIP: checkpoint before switching"
 git switch main
 
 ------------------------------------------------------------------------
 
 ### When coming back
 
-git switch wip-sync-2026-02-09  
+git switch wip-sync-2026-02-09
 git log --oneline -5
 
 👉 You immediately see where you left off
@@ -867,7 +867,7 @@ Only when:
 
 Example:
 
-git stash push -m "mid-edit"  
+git stash push -m "mid-edit"
 git switch main
 
 But:
@@ -880,9 +880,9 @@ But:
 
 Examples:
 
-WIP: removed generated puml artifacts  
-WIP: updated validation scripts  
-WIP: reconciling tools directory  
+WIP: removed generated puml artifacts
+WIP: updated validation scripts
+WIP: reconciling tools directory
 WIP: investigating lockfile differences
 
 Not perfect — just descriptive enough.
@@ -916,42 +916,42 @@ branches.**
 
 Given your reconciliation work:
 
-✔ commit frequently  
-✔ use git add -A  
-✔ treat commits as checkpoints  
+✔ commit frequently
+✔ use git add -A
+✔ treat commits as checkpoints
 ✔ avoid long uncommitted sessions
 
 # Changing Branches – the complete picture
 
 In branch “A”, another branch “Main”.
 
-git status //chec the current state  
-git add -A // push all changed files to staging  
-git commit -m "WIP checkpoint before switch" // commit  
-git push // (optional) push to .com repo  
-git switch main // switch to branch main  
+git status //chec the current state
+git add -A // push all changed files to staging
+git commit -m "WIP checkpoint before switch" // commit
+git push // (optional) push to .com repo
+git switch main // switch to branch main
 git status // check status after branch switch
 
 How to create a Branch to the “origin” (.com server)
 
-git switch New // switch locally to branch “New”  
-git add -A // add changes  
-git commit -m "WIP: whatever changed" // commit changes locally  
+git switch New // switch locally to branch “New”
+git add -A // add changes
+git commit -m "WIP: whatever changed" // commit changes locally
 git push -u origin New // push to origin server as a new Branch
 
 # Local vs remote/origin actions
 
 Almost all operations can be done locally, up to and including a push.
 However, the Pull Request to merge a Branch to main has to be done on
-the server and is subject to an “origin” verification workflow.  
+the server and is subject to an “origin” verification workflow.
 
 The missing layer: “origin workflows”
 
 You can think of your system as having **4 layers**, not 3:
 
-Local disk → your files  
-.git (local repo) → commits/branches  
-origin (GitHub) → shared repo  
+Local disk → your files
+.git (local repo) → commits/branches
+origin (GitHub) → shared repo
 origin workflows → automation + rules on GitHub
 
 ------------------------------------------------------------------------

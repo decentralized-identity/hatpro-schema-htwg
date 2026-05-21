@@ -1,26 +1,30 @@
-# Status - hatpro-schema-temp
+# Status - hatpro-schema-htwg
 
 ## Purpose
-Push and PR outstanding changes to Main 
+Push and PR outstanding changes to Main
 
 ---
+
+## 2026-05-21 Reorg and repo rename to **hatpro-schema-htwg**
+
+More information on this name change coming
 
 ## 2026-04-01 <Update title>
 
 ### Current state
-Due to poor Git habits by the developer, the HATPro GitHub repository hatpro-schema-temp has not been updated since sometime in Nov 2025. The biggest mistake was not pushing exploratory work into a separate branch and failing to regularly "push to origin" to share updates. 
+Due to poor Git habits by the developer, the HATPro GitHub repository hatpro-schema-htwg has not been updated since sometime in Nov 2025. The biggest mistake was not pushing exploratory work into a separate branch and failing to regularly "push to origin" to share updates.
 
 A merged on-local-disk version of the latest changes vs the main branch code has been completed and verified
 
-- **Repo folder:** C:\Users\nthomson\Projects\hatpro-schema-temp_RECONCILE
+- **Repo folder:** C:\Users\nthomson\Projects\hatpro-schema-htwg
 - **Git branch:** wip-sync-2026-02-09
 
 ### Changes since last update
-- Substantial changes to both the Schema and tooling 
+- Substantial changes to both the Schema and tooling
 
 ### Current focus
 - Get the current project files updated so other contributors can get up to date with the last content
-- Ensure that the state of the origin (DIF repository on GitHub.com) is in a working state ready for regular, standard, frequent updates and 
+- Ensure that the state of the origin (DIF repository on GitHub.com) is in a working state ready for regular, standard, frequent updates and
 
 ### Open issues/blockers
 - Due to bugs in the npm/.mjs development workflow tooling to generate JSON Schema, JSON from .puml source files and verify/validate with valid and invalid tests for each component, plus lack of coverage of functional invalid/valid test cases, the AJV (node.js Java Schema validation and utility library) based validation tests were failing. As this validation step was incorporated into the push/PR workflow to .origin, the push/PR failed, blocking sharing of the content
@@ -56,4 +60,4 @@ Review notes
 
 Ensure the push/PR flow works and retrieving a new branch to a contributor's machine is successful and functional
 
-PR 
+PR

@@ -7,16 +7,16 @@
 
 Git and GitHub are optimized for:
 
-- Frequent, incremental commits  
-- Branches representing continuously evolving work  
-- Collaborative, low-risk change cycles  
+- Frequent, incremental commits
+- Branches representing continuously evolving work
+- Collaborative, low-risk change cycles
 
 However, HATPro schema development often involves:
 
-- Large multi-file refactors  
-- Experimental modeling that may be abandoned  
-- Rapid prototype iterations  
-- Major structural changes across packages and segments  
+- Large multi-file refactors
+- Experimental modeling that may be abandoned
+- Rapid prototype iterations
+- Major structural changes across packages and segments
 
 In these cases, pushing unstable work into Git too early creates noise, churn, and unnecessary complexity.
 
@@ -33,7 +33,7 @@ This strategy introduces two complementary safety layers:
 | Git branches & commits    | Official project history and collaboration      |
 | Workstation WIP snapshots | Local experimentation, rollback & stabilization |
 
-Git remains the system of record.  
+Git remains the system of record.
 WIP snapshots are a **personal workstation protection and staging mechanism**.
 
 ---
@@ -60,19 +60,15 @@ Recommended workstation layout:
 
 <Projects Folder>/
 │
-├── hatpro-schema-temp/         ← Main Git working tree
-├── hatpro-schema-temp_WIP/     ← Active sandbox workspace
-├── hatpro-schema-temp-WIP-2025-11-27/
-├── hatpro-schema-temp-repoSnapshot-2025-11-27/
+├── hatpro-schema-htwg/         ← Main Git working tree
+├── hatpro-schema-htwg.branch_name     ← Branchworkspace
 
 ### Folder Meaning
 
 | Folder                    | Purpose                                    |
 | ------------------------- | ------------------------------------------ |
-| `hatpro-schema-temp/`     | Active Git working tree                    |
-| `hatpro-schema-temp_WIP/` | Experimental sandbox workspace             |
-| `*-WIP-*`                 | Filesystem safety snapshots                |
-| `*-repoSnapshot-*`        | Full repository snapshots including `.git` |
+| `hatpro-schema-htwg/`     | Active Git working tree                    |
+| `hatpro-schema-htwg.branch_name` | branch workspace             |
 
 ------
 
@@ -86,7 +82,7 @@ npm run snapshot:wip
 
 Generates:
 
-hatpro-schema-temp-WIP-YYYY-MM-DD/
+hatpro-schema-htwg-WIP-YYYY-MM-DD/
 
 Characteristics:
 
@@ -102,7 +98,7 @@ npm run snapshot:wip -- --label NameRefactor
 Produces:
 
 ```
-hatpro-schema-temp-NameRefactor-YYYY-MM-DD/
+hatpro-schema-htwg-NameRefactor-YYYY-MM-DD/
 ```
 
 Includes:
@@ -137,15 +133,15 @@ This is used for:
 Examples:
 
 ```
-hatpro-schema-temp-WIP-2025-11-27
-hatpro-schema-temp-repoSnapshot-2025-11-27
+hatpro-schema-htwg-WIP-2025-11-27
+hatpro-schema-htwg-repoSnapshot-2025-11-27
 ```
 
 ### With Labels
 
 ```
-hatpro-schema-temp-WIP-NameModelRevamp-2025-11-27
-hatpro-schema-temp-repoSnapshot-PreAlphaFreeze-2025-11-27
+hatpro-schema-htwg-WIP-NameModelRevamp-2025-11-27
+hatpro-schema-htwg-repoSnapshot-PreAlphaFreeze-2025-11-27
 ```
 
 ------
@@ -164,7 +160,7 @@ This shows how WIP and Git interact:
                                     │
                          ┌──────────▼──────────┐
                          │   Copy to WIP       │
-                         │ hatpro-schema-temp_ │
+                         │ hatpro-schema-htwg_ │
                          │        WIP           │
                          └──────────┬──────────┘
                                     │

@@ -1,6 +1,6 @@
 # Required Platform Installations
 
-This document lists all software dependencies required to work on or contribute to the `hatpro-schema-temp` project and its tooling (including WIP_tools).
+This document lists all software dependencies required to work on or contribute to the `hatpro-schema-htwg` project and its tooling (including WIP_tools).
 
 ---
 
@@ -44,8 +44,8 @@ This document lists all software dependencies required to work on or contribute 
 
 ## 4. Environment Configuration
 
-1. **Set Node version (recommended)**  
-   Use `nvm` or `nvm-windows` to install and use Node 20.10.0:  
+1. **Set Node version (recommended)**
+   Use `nvm` or `nvm-windows` to install and use Node 20.10.0:
    ```bash
    nvm install 20.10.0
    nvm use 20.10.0
