@@ -1,17 +1,19 @@
 # HATPro Schema Working Group Repository (HTWG)
 
-> **Status:** Early working repository under active development and restructuring
+> **Status:** Working repository under active development
 > **Repository:** `hatpro-schema-htwg`
 
 **Notes:** 
+- Project website: https://htwg.identity.foundation/
 
-- This is a quick/AI-generated README file, which will be updated in the coming days
-  [Neil Thomson - co-chair DIF Hospitality and Travel WG](mailto:neil.thomson@queryvision.com) May 22, 2026
-- [Download the **HATPRo Implementation Guide Specification**](https://raw.githubusercontent.com/decentralized-identity/hatpro-schema/main/supportingDocuments/PDFs/HATPro_Implementation_Guide.pdf?ref=htwg.identity.foundation)
+- Primary contact:
+  [Neil Thomson - co-chair DIF Hospitality and Travel WG](mailto:neil.thomson@queryvision.com) 
+
+- [Download the **HATPRo Implementation Guide Specification**](https://raw.githubusercontent.com/decentralized-identity/hatpro-schema-htwg/main/docs/ImplementationGuide/HATPro%20Implementation%20Guide.pdf)
+
 - See the following supplemental README documents
   - [Developer README](docs/README_forDEVs.md)
   - [Project State README](docs/README_ProjectState.md)
-
 
 # Overview
 
