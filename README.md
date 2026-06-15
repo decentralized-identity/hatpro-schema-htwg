@@ -9,7 +9,7 @@
 - Primary contact:
   [Neil Thomson - co-chair DIF Hospitality and Travel WG](mailto:neil.thomson@queryvision.com) 
 
-- [Download the **HATPRo Implementation Guide Specification**](https://raw.githubusercontent.com/decentralized-identity/hatpro-schema-htwg/main/docs/ImplementationGuide/HATPro%20Implementation%20Guide.pdf)
+- [Download the **HATPro Implementation Guide Specification**](https://raw.githubusercontent.com/decentralized-identity/hatpro-schema-htwg/main/docs/ImplementationGuide/HATPro%20Implementation%20Guide.pdf)
 
 - See the following supplemental README documents
   - [Developer README](docs/README_forDEVs.md)
