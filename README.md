@@ -154,6 +154,8 @@ Until formal contribution documentation exists:
 
 License and contribution policies are still under review.
 
+DIF is a registered 501(c)(6) membership organization. All code is licensed under Apache 2, W3C terms govern IPR,  which includes being a member of DIF and a signed contribution agreement). Content is available via Creative Commons 4 Attribution.
+
 # Contact / Affiliation
 
 This repository is associated with ongoing work in hospitality, travel, digital identity, and interoperable data modeling communities, including exploratory collaboration related to decentralized identity and standards initiatives.
